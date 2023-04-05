@@ -356,6 +356,10 @@ textarea {
   bottom: -13px;
 }
 
+.review--star {
+  margin-bottom: 10px;
+}
+
 .review--anonymous {
   margin-right: 50%;
 }

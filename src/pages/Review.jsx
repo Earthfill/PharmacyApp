@@ -3,6 +3,7 @@ import Arrow from '../components/Arrow'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
+import RatedStar from '../components/RatedStar';
 
 const Review = () => {
   const [item, setItem] = useState(null);
@@ -56,9 +57,10 @@ const Review = () => {
     <div>
       <Arrow />
       <div className='review'>
-        <h3 className='review--main'>Reviews</h3>
+        <h3 className='review--main'>Ratings and reviews</h3>
           {item.map((element, index) => (
             <div className='review--card' key={index}>
+              <p className='review--star'><RatedStar rating={element.rating}/></p>
               <p>{element.body}</p>
                 <span className='review--anonymous'>--Anonymous</span>
                 <span className='review--time'>5 hours ago</span>
