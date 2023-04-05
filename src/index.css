@@ -3,6 +3,13 @@
   font-family: Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+body {
+  background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('/assets/pcn-logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 a {
   color: #45B6FE;
 }
@@ -18,7 +25,7 @@ a:link {
 }
 
 .arrow {
-  margin: 50px 0 0 5%;
+  margin: 50px 0 30px 5%;
   position: static;
   /* margin-top: -10%; */
 }
@@ -26,14 +33,15 @@ a:link {
 .arrow--back {
   border-radius: 50%;
   background-color: rgba(71, 71, 71, 0.1);
-  height: 50px;
-  width: 50px;
-  padding: 1px;
+  height: 30px;
+  width: 30px;
+  /* padding: 10px; */
+  border: none;
 }
 
 .fa-arrow-left {
   color: #fff;
-  padding: 2px;
+  padding: 6px 0 0;
   height: 50px;
 }
 
@@ -144,17 +152,25 @@ p.error--fill {
 }
 
 textarea {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;	
+  -webkit-box-sizing: none;
+  -moz-box-sizing: none;
+  box-sizing: none;
+  resize: none;	
   width: 100%;
   border: 1px solid rgba(71, 71, 71, 0.25);
+  overflow: auto;
+  outline: none;
+}
+
+.loading {
+  margin: 85% 37% auto;
 }
 
 .about {
   font-size: 20px;
   height: 100%;
   width: 100%;
+  margin-top: 10%;
 }
 
 .about--text--info, .about--details {
@@ -166,6 +182,7 @@ textarea {
   width: 100px;
   display: block;
   margin: 0px auto 0;
+  border-radius: 50%;
 }
 
 .about--info {
@@ -202,8 +219,20 @@ textarea {
   display: inline-block;
 }
 
+.fa-map-marker {
+  color: red;
+}
+
+.fa-phone {
+  color: #00FF00;
+}
+
+.fa-envelope-o, .fa-clock-o {
+  color: black;
+}
+
 .address, .telephone, .mail, .availability {
-  margin: -20px 0 20px 25px;
+  margin: -20px 40px 20px 25px;
 }
 
 .about--anonymous {
@@ -252,11 +281,11 @@ textarea {
   padding: 0px 10px;
 }
 
-.on {
+.on, .filled {
   color: #FFD700;
 }
 
-.off {
+.off, .empty {
   color: rgba(71, 71, 71, 0.5);
 }
 
@@ -267,8 +296,8 @@ textarea {
 }
 
 .about--fill {
-  width: 80%;
-  margin: 0px 30px auto;
+  width: 82%;
+  margin: 0px 8% auto;
 }
 
 .about--button {
@@ -277,33 +306,70 @@ textarea {
   border: none;
   cursor: pointer;
   display: block;
-  margin: -1.1% 0 3% 81%;
-  padding: 1.5%;
+  padding: 2%;
+  border-radius: 4px;
 }
 
 .review {
   font-size: 15px;
-  margin: 0 30px;
+  margin: 0 50px;
 }
 
 .review--main {
   margin: 0px 0 15px;
 }
 
-.review-review {
-  margin-bottom: 50px;
+.review--card {
+  margin: 0 -30px 50px;
+  border: 1px solid rgba(100, 100, 100, 0.1);
+  padding: 20px;
+  font-weight: 900;
+  position: relative;
   font-size: 12px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px 0 rgba(71, 71, 71, 0.1);
+}
+
+.review--card:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid rgba(71, 71, 71, 0.1);
+  border-right: 10px solid transparent;
+  border-top: 10px solid rgba(71, 71, 71, 0.1);
+  border-bottom: 10px solid transparent;
+  left: 20px;
+  bottom: -23px;
+}
+
+.review--card:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #fff;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+  border-bottom: 10px solid transparent;
+  left: 24px;
+  bottom: -13px;
 }
 
 .review--anonymous {
-  text-align: right;
+  margin-right: 50%;
+}
+
+.review--anonymous, .review--time {
+  display: inline-block;
   font-size: 10px;
   color: #474747;
+  margin-top: 10%;
 }
 
 .report {
-  width: 85%;
-  margin: 0 30px;
+  width: 80%;
+  margin: 0 10%;
   font-size: 15px;
 }
 
@@ -323,47 +389,49 @@ textarea {
 
 .report--report { 
   font-size: 12px;
-  margin: 10% 0 3% -15%;
+  margin: 10% 3% 3% -12%;
 }
 
 .report--anonymous {
   text-align: right;
   font-size: 10px;
   color: #474747;
-  margin-right: -17.5%;
+  margin-right: -12%;
 }
 
 .ratings {
-  width: 85%;
+  width: 100%;
 }
 
 .ratings--main {
-  margin: 0px 30px 15px;
   font-size: 32px;
 }
 
 .ratings--info {
-  margin-left: 30px;
   font-size: 15px;
+  margin-right: 10%;
+}
+
+.ratings--main, .ratings--info {
+  margin-left: 8%;
 }
 
 .ratings--view--general {
   display: inline-flex;
-  margin: 15% 0 0 25%;
+  margin: 15% 5% 0 30%;
   vertical-align: middle;
 }
 
 .ratings--view {
-  margin-left: -75px;
+  margin-left: -80px;
   text-align: center;
   vertical-align: middle;
-  margin-top: 40px;
+  margin-top: 15px;
 }
 
 /* .ratings--star {
-  margin-left: 0;
+  margin-left: 0;  
 } */
-
 /* .ratings--star--empty .fa-star {
   color: rgba(71, 71, 71, 0.15);
 } */
@@ -371,21 +439,24 @@ textarea {
 /* Three column layout */
 .side {
   float: left;
-  width: 15%;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 15px;
 }
 
 .middle {
   margin-top: 10px;
   float: left;
-  width: 65%;
+  width: 70%;
   border-radius: 15%;
+  margin-right: -5%;
 }
 
 /* Place text to the right */
 .row {
-  margin: -5px 15px 0;
-  width: 60%;
+  margin: -5px 3px 0 0px;
+  width: 100.5%;
+  font-size: 14px;
 }
 
 /* Clear floats after the columns */
@@ -397,18 +468,19 @@ textarea {
 
 /* The bar container */
 .bar-container {
-  width: 150px;
-  background-color: #f1f1f1;
+  width: 155px;
+  background-color: rgba(71, 71, 71, 0.05);
   color: white;
   border-radius: 15%;
+  padding-left: -10px;
 }
 
 /* Individual bars */
-.bar-5 {width: 30%; height: 13px; background-color: #45B6FE; border-radius: 15%;}
-.bar-4 {width: 80%; height: 13px; background-color: #45B6FE; border-radius: 15%;}
-.bar-3 {width: 20%; height: 13px; background-color: #45B6FE; border-radius: 15%;}
-.bar-2 {width: 15%; height: 13px; background-color: #45B6FE; border-radius: 15%;}
-.bar-1 {width: 15%; height: 13px; background-color: #45B6FE; border-radius: 15%;}
+.bar-5 {width: 80%; height: 13px; background-color: #45B6FE; border-radius: 15px;}
+.bar-4 {width: 55%; height: 13px; background-color: #45B6FE; border-radius: 15px;}
+.bar-3 {width: 20%; height: 13px; background-color: #45B6FE; border-radius: 15px;}
+.bar-2 {width: 15%; height: 13px; background-color: #45B6FE; border-radius: 15px;}
+.bar-1 {width: 30%; height: 13px; background-color: #45B6FE; border-radius: 15px;}
 
 /* Desktop */
 .signin {
@@ -589,6 +661,10 @@ textarea {
     margin-top: 50px;
   }
 
+  .ratings--rating {
+    margin-right: -10px;
+  }
+
   .ratings--info {
     margin-left: 60px;
   }
@@ -600,11 +676,25 @@ textarea {
     margin: 0px 20% auto;
   }
 
+  .ratings--view {
+    margin-left: px;
+  }
+
   .bar-container {
     width: 350px;
     background-color: #f1f1f1;
     color: white;
     border-radius: 15%;
+  }
+
+  .row {
+    padding: 10px;
+    margin: 0 -50px;
+  }
+
+  .side {
+    margin-left: 75px;
+    margin-right: 10px;
   }
 
   .bar-5 {width: 30%; height: 13px; background-color: #45B6FE; border-radius: 15%;}

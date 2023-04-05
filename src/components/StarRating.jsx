@@ -1,18 +1,22 @@
 import React from 'react'
 import { useState } from 'react';
 
+// for the make a rating
 const StarRating = () => {
     const [rating, setRating] = useState(0);
+    const [hoverFill, setHoverFill] = useState(null);
+
     return (
       <div className='star--rating'>
         {[...Array(5)].map((star, index) => {
-          index += 1;
+          const ratingValue = index + 1;
           return (
             <button
-              type='button'
               key={index}
-              className={index <= rating ? 'on' : 'off'}
-              onClick={() => setRating(index)}
+              className={ratingValue <= (rating &&hoverFill) ? 'on' : 'off'}
+              onMouseEnter={() => setHoverFill(ratingValue)}
+              onMouseLeave={() => setHoverFill(null)}
+              onClick={() => setRating(ratingValue)}
             >
               <span className='star'>&#9733;</span>
             </button>

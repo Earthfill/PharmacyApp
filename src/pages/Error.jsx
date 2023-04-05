@@ -8,7 +8,7 @@ const Error = () => {
       <Arrow />
       <div className='error'>
         <div>
-          <img src="./assets/error.png" alt="" className='error--image'/>
+          <img src="/assets/error.png" alt="" className='error--image'/>
         </div>
         <div className="error--input">
           <strong className='error--fill'><em>Oops...</em></strong>

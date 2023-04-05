@@ -1,5 +1,4 @@
 import React from 'react'
-import Reports from '../components/Reports'
 
 const User = () => {
   return (
@@ -18,9 +17,7 @@ const User = () => {
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
-                <span className="ratings--star--empty">
-                    <span className="fa fa-star"></span>    
-                </span>
+                <span className="fa fa-star unchecked"></span>
               </p>
             </div>
           </div>
