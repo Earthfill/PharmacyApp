@@ -7,6 +7,7 @@ import Ratings from "./pages/Ratings";
 import Signin from "./pages/Signin";
 import User from "./pages/User";
 import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
 
 function App() {
   return (
