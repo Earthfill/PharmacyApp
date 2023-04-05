@@ -7,13 +7,11 @@ import Ratings from "./pages/Ratings";
 import Signin from "./pages/Signin";
 import User from "./pages/User";
 import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path='/error' element={<Error />} />
         <Route path='/about/:uniqueGuid' element={<About />} />
         <Route path='/about/review/:uniqueGuid' element={<Review />} />
