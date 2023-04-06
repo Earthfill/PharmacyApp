@@ -116,10 +116,14 @@ const About = () => {
             {item.reviews.length < 1 ? "No reviews yet!": item.reviews[1].body}
           </p>
         </div>
+        {item.reviews.length < 1 ? <p></p> :
         <p className='about--anonymous'><em>--Anonymous</em></p>
+        }
+        {item.reviews.length < 1 ? <p></p> :
         <p className='about--more'>
           <Link to={`/about/review/${uniqueGuid}`}><em>See All Reviews</em></Link>
         </p>
+        }
         <hr />
         <p className='about--ratings'><strong><em>Rate this Pharmacy</em></strong></p>
         <div className='about--rating'>
