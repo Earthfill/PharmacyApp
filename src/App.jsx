@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Routes>x
         <Route path='/error' element={<Error />} />
-        <Route path='/about/:uniqueGuid' element={<About />} />
+        <Route path='/:uniqueGuid' element={<About />} />
         <Route path='/about/review/:uniqueGuid' element={<Review />} />
         {/* <Route path='/about/pages/report/:id' element={<Report />} /> */}
         <Route path='/about/ratings/:uniqueGuid' element={<Ratings />} />
