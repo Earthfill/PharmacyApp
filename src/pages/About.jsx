@@ -112,7 +112,8 @@ const About = () => {
         <div className='about--reviews'>
           <h3>Ratings and reviews</h3>
           <p className='about--text--info'>
-            {item.reviews[0].body} 
+            {/* {!item && "No reviews yet!"} */}
+            {item.reviews.length < 1 ? "No reviews yet!": item.reviews[1].body}
           </p>
         </div>
         <p className='about--anonymous'><em>--Anonymous</em></p>

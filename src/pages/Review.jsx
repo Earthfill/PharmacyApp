@@ -50,13 +50,15 @@ const Review = () => {
       </div>
     )
   }
-  else {
+  else if (item === null) {
+    return <div><Error /></div>;
+  } else {
   return (
     <div>
       <Arrow />
       <div className='review'>
         <h3 className='review--main'>Ratings and reviews</h3>
-          {item.map((element, index) => (
+          {item?.map((element, index) => (
             <div className='review--card' key={index}>
               <p className='review--star'><RatedStar rating={element.rating}/></p>
               <p>{element.body}</p>
