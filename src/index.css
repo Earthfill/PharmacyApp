@@ -26,7 +26,8 @@ a:link {
 
 .arrow {
   margin: 50px 0 30px 5%;
-  position: static;
+  /* position:absolute; */
+  position: relative;
   /* margin-top: -10%; */
 }
 

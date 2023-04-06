@@ -50,9 +50,7 @@ const Review = () => {
       </div>
     )
   }
-  else if (item === null) {
-    return <div><Error /></div>;
-  } else {
+  else {
   return (
     <div>
       <Arrow />
