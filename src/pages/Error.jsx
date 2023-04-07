@@ -1,11 +1,9 @@
 import React from 'react'
-import Arrow from '../components/Arrow'
 import Text from '../components/Text'
 
 const Error = () => {
   return (
     <div>
-      <Arrow />
       <div className='error'>
         <div>
           <img src="/assets/error.png" alt="" className='error--image'/>

@@ -8,6 +8,7 @@ import RatedStar from '../components/RatedStar';
 import Popup from '../components/Popup';
 import PhoneNumber from '../components/PhoneNumber';
 import EmailAddress from '../components/EmailAddress';
+import Address from '../components/Address';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -134,7 +135,7 @@ const About = () => {
         <div className='about--details'>
           <div>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
-            <p className='address'>{item.location}</p>
+            <p className='address'><Address address={item.location} /></p>
           </div>
           <div>
             <i className="fa fa-phone" aria-hidden="true"></i>
