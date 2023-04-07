@@ -13,7 +13,7 @@ const StarRating = ({ onRate }) => {
       setShowPopup(true);
       setTimeout(() => {
         setShowPopup(false);
-      }, 2000);
+      }, 10000);
     }
 
     return (
