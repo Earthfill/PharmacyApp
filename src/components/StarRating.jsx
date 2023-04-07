@@ -1,14 +1,21 @@
 import React from 'react'
 import { useState } from 'react';
+import Popup from './Popup';
 
 // for the make a rating
 const StarRating = ({ onRate }) => {
     const [rating, setRating] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleRate = (value) => {
       setRating(value);
       onRate(value);
-    };
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        window.location.reload();
+      }, 2000);
+    }
 
     return (
       <div className='star--rating'>
@@ -21,6 +28,7 @@ const StarRating = ({ onRate }) => {
             &#9733;
           </span>
         ))}
+        {showPopup && <Popup />}
       </div>
   )
 }

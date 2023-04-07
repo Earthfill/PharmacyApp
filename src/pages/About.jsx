@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Error from './Error'
 import { Link,  useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
+import RatedStar from '../components/RatedStar';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -114,8 +115,8 @@ const About = () => {
         <img src={item.logo} alt="" className="about--image" />
         <div className='about--info'>
          <h4>{item.name}</h4>
-         <p>  
-         </p>
+         <span className='about--top--rating'>{item.rating}</span>
+         <span className='about--top--rating'><RatedStar rating={item.rating}/></span>
          <p>REG NO: {item.regNumber}</p>
         </div>
         <hr />
@@ -168,11 +169,11 @@ const About = () => {
         {/* <p className='about--more'>
           <a href={`./pages/report/${id}`}><em>Report this page?</em></a>
         </p> */}
-        {item.reviews.length < 1 ? <p></p> :
+        {/* {item.reviews.length < 1 ? <p></p> :
         <p className="about--more">
           <Link to={`/about/ratings/${uniqueGuid}`}><em>See All Ratings</em></Link>
         </p>
-        }
+        } */}
         <hr />
         <p className="about--reviews--post"><strong><em>Post a Review</em></strong></p>
         <div className='about--fill'>

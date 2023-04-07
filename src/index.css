@@ -191,6 +191,11 @@ textarea {
   margin: 10px 0 25px;
 }
 
+.about--top--rating {
+  display: inline-block;
+  margin: 5px;
+}
+
 .checked, .fa-star-half-stroke {
   color: #FFD700;
 }
