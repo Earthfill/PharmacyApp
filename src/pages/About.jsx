@@ -168,9 +168,11 @@ const About = () => {
         {/* <p className='about--more'>
           <a href={`./pages/report/${id}`}><em>Report this page?</em></a>
         </p> */}
+        {item.reviews.length < 1 ? <p></p> :
         <p className="about--more">
           <Link to={`/about/ratings/${uniqueGuid}`}><em>See All Ratings</em></Link>
         </p>
+        }
         <hr />
         <p className="about--reviews--post"><strong><em>Post a Review</em></strong></p>
         <div className='about--fill'>
