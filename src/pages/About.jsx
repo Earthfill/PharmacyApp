@@ -7,6 +7,7 @@ import ReactLoading from "react-loading";
 import RatedStar from '../components/RatedStar';
 import Popup from '../components/Popup';
 import PhoneNumber from '../components/PhoneNumber';
+import EmailAddress from '../components/EmailAddress';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -141,7 +142,7 @@ const About = () => {
           </div>
           <div>
             <i className="fa fa-envelope-o" aria-hidden="true"></i>
-            <p className='mail'>{item.email}</p>
+            <p className='mail'><EmailAddress email={item.email} /></p>
           </div>
           <div>
             <i className="fa fa-clock-o" aria-hidden="true"></i>
