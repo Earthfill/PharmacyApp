@@ -122,6 +122,7 @@ i {
   height: 100%;
   width: 100%;
   display: block;
+  margin-top: 10%;
 }
 
 .error--image {
@@ -143,15 +144,17 @@ i {
 
 .error--fill {
   margin: -1% 0 1px 0;
+  font-size: 13px;
 }
 
 strong.error--fill {
-  font-size: 30px;
+  font-size: 20px;
   text-align: left;
 }
 
 p.error--fill {
   margin: 15px 0;
+  font-size: 13px;
 }
 
 .error--button {
@@ -160,8 +163,9 @@ p.error--fill {
   border: none;
   cursor: pointer;
   display: block;
-  margin: -1.1% 0 3% 81%;
+  /* margin: -1.1% 0 3% 81%; */
   padding: 1.5%;
+  border-radius: 4px;
 }
 
 textarea {
@@ -641,8 +645,8 @@ textarea {
     border: none;
     cursor: pointer;
     display: block;
-    margin: -5px 0px 5px 950px;
     padding: 5px;
+    border-radius: 4px;
   }
 
   .user {
