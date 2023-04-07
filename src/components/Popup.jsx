@@ -3,7 +3,7 @@ import React from 'react'
 const Popup = () => {
   return (
     <div>
-    	<p><strong>Thanks for rating!</strong></p>
+    	<p>Thanks for rating! &#128578;</p>
     </div>
   )
 }
