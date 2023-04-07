@@ -348,7 +348,6 @@ textarea {
   margin: 60px -10px 50px;
   border: 1px solid rgba(100, 100, 100, 0.1);
   padding: 20px;
-  font-weight: 900;
   position: relative;
   font-size: 12px;
   border-radius: 10px;
@@ -397,8 +396,9 @@ textarea {
 .review--anonymous, .review--time {
   display: inline-block;
   font-size: 10px;
-  color: #474747;
   margin-top: 10%;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .report {
