@@ -331,7 +331,7 @@ textarea {
 }
 
 .review--main {
-  margin: -1% 0;
+  margin: 0;
   position: fixed;
   top: 0;
   right: 100;
