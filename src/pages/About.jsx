@@ -135,7 +135,7 @@ const About = () => {
         <div className='about--details'>
           <div>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
-            <p className='address'><Address address={item.location} /></p>
+            <p className='address'><Address address={item.location}/></p>
           </div>
           <div>
             <i className="fa fa-phone" aria-hidden="true"></i>
