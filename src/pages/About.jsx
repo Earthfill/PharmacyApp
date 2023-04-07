@@ -5,6 +5,7 @@ import Error from './Error'
 import { Link,  useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import RatedStar from '../components/RatedStar';
+import Popup from '../components/Popup';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -16,6 +17,8 @@ const About = () => {
   
   const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState("");
+
+  const [showPopup, setShowPopup] = useState(false);
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
   
@@ -89,6 +92,7 @@ const About = () => {
 
   const handleRate = (value) => {
     setRating(value);
+    setShowPopup(true);
   };
 
   const handleReviewSubmit = (review) => {
@@ -163,8 +167,9 @@ const About = () => {
         <p className='about--ratings'><strong><em>Rate this Pharmacy</em></strong></p>
         <div className='about--rating'>
           <StarRating onRate={handleRate}/>
-          <p className='about--rating--bad'>Bad</p>
-          <p className='about--rating--great'>Great</p>
+          {!showPopup && <p className='about--rating--bad'>Bad</p>}
+          {!showPopup && <p className='about--rating--great'>Great</p>}
+          {showPopup && <Popup />}
         </div>
         {/* <p className='about--more'>
           <a href={`./pages/report/${id}`}><em>Report this page?</em></a>

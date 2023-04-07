@@ -47,6 +47,7 @@ a:link {
 
 .popup {
   font-size: 12px;
+  margin-top: 10px;
 }
 
 .fa-arrow-left {
@@ -281,11 +282,11 @@ textarea {
 }
 
 .about--rating--bad {
-  margin-right: 50px;
+  margin-right: 13%;
 }
 
 .about--rating--great {
-  margin-left: 50px;
+  margin-left: 13%;
 }
 
 .on, .off {
@@ -294,6 +295,7 @@ textarea {
   outline: none,;
   cursor: pointer;
   padding: 0px 10px;
+  letter-spacing: -10px;
 }
 
 .on, .filled {
