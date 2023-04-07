@@ -328,7 +328,7 @@ textarea {
 }
 
 .review--main {
-  margin: 0px 0 15px;
+  margin: 20% 0 15px;
 }
 
 .review--card {
@@ -370,6 +370,11 @@ textarea {
 
 .review--star {
   margin-bottom: 10px;
+}
+
+.review--text {
+  font-size: 15px;
+  font-weight: 300;
 }
 
 .review--anonymous {

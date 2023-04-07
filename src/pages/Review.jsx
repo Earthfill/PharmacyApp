@@ -61,7 +61,7 @@ const Review = () => {
           {item?.map((element, index) => (
             <div className='review--card' key={index}>
               <p className='review--star'><RatedStar rating={element.rating}/></p>
-              <p>{element.body}</p>
+              <p className='review--text'>{element.body}</p>
                 <span className='review--anonymous'>--Anonymous</span>
                 <span className='review--time'>5 hours ago</span>
             </div>
