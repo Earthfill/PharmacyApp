@@ -281,12 +281,9 @@ textarea {
   font-style: italic;
 }
 
-.about--rating--bad {
-  margin-right: 10%;
-}
-
 .about--rating--great {
-  margin-left: 13%;
+  margin-left: 26%;
+  margin-right: -3%;
 }
 
 .on, .off {
