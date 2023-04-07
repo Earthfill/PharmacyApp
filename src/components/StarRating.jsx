@@ -11,9 +11,6 @@ const StarRating = ({ onRate }) => {
       setRating(value);
       onRate(value);
       setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 10000);
     }
 
     return (
