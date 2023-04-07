@@ -6,6 +6,7 @@ import { Link,  useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import RatedStar from '../components/RatedStar';
 import Popup from '../components/Popup';
+import PhoneNumber from '../components/PhoneNumber';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -136,7 +137,7 @@ const About = () => {
           </div>
           <div>
             <i className="fa fa-phone" aria-hidden="true"></i>
-            <p className='telephone'>{item.phoneNumber}</p>
+            <p className='telephone'><PhoneNumber number={item.phoneNumber}/></p>
           </div>
           <div>
             <i className="fa fa-envelope-o" aria-hidden="true"></i>
