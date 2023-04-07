@@ -2,7 +2,7 @@ import React from 'react'
 
 const Popup = () => {
   return (
-    <div>
+    <div className='popup'>
     	<p>Thanks for rating! &#128578;</p>
     </div>
   )

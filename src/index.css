@@ -45,6 +45,10 @@ a:link {
   border: none;
 }
 
+.popup {
+  font-size: 12px;
+}
+
 .fa-arrow-left {
   color: #fff;
   padding: 6px 0 0;
