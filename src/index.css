@@ -298,7 +298,7 @@ textarea {
 
 .about--fill {
   width: 82%;
-  margin: 0px 8% auto;
+  margin: 0px 8% 10px;
 }
 
 .about--button {
@@ -307,8 +307,9 @@ textarea {
   border: none;
   cursor: pointer;
   display: block;
-  padding: 2%;
+  padding: 1.5%;
   border-radius: 4px;
+  /* margin: 5px; */
 }
 
 .review {

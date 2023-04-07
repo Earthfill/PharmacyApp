@@ -13,7 +13,8 @@ const About = () => {
   const params = useParams();
   const {uniqueGuid} = params;
   
-  const [newData, setNewData] = useState('');
+  const [rating, setRating] = useState(0);
+  const [reviews, setReviews] = useState("");
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
   
@@ -40,26 +41,59 @@ const About = () => {
       })
   }, [uniqueGuid])
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    fetch(`${BASE_URL}/api/v1/Review/AddReview`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
+  
+  //   fetch(`${BASE_URL}/Review/AddReview`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
      
-      body: JSON.stringify({
-        "body": newData,
-        "rating":body.rating,
-        "pharmacyId": body.pharmacyId
-      })
-    })
-    .then(res => res.json())
+  //     body: JSON.stringify({
+  //       "body": reviews,
+  //       "rating": rating,
+  //       "pharmacyId": item.id,
+  //     })
+  //   })
+  //   .then(res => res.json())
    
-    .catch(error => console.error(error.message));
-    setNewData('');
+  //   .catch(error => console.error(error.message));
+  //   setReviews('');
+  //   setRating(0.0);
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+		fetch(`${BASE_URL}/Review/AddReview`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+		 
+			body: JSON.stringify({
+				"body": reviews,
+				"rating": rating,
+				"pharmacyId": item.id
+			})
+		})
+		.then(res => res.json())
+		
+		.catch(error => console.error(error.message));
+		// onReviewSubmit(res.data);
+    setReviews("");
+		};
+
+  const handleRate = (value) => {
+    setRating(value);
   };
+
+  const handleReviewSubmit = (review) => {
+    setReviews([...reviews, review]);
+  };
+
   if (!isLoading) {
     return (
       <div className='loading'>
@@ -113,7 +147,7 @@ const About = () => {
           <h3>Ratings and reviews</h3>
           <p className='about--text--info'>
             {/* {!item && "No reviews yet!"} */}
-            {item.reviews.length < 1 ? "No reviews yet!": item.reviews[1].body}
+            {item.reviews.length < 1 ? "No reviews yet!": item.reviews[0].body}
           </p>
         </div>
         {item.reviews.length < 1 ? <p></p> :
@@ -127,7 +161,7 @@ const About = () => {
         <hr />
         <p className='about--ratings'><strong><em>Rate this Pharmacy</em></strong></p>
         <div className='about--rating'>
-          <StarRating />
+          <StarRating onRate={handleRate}/>
           <p className='about--rating--bad'>Bad</p>
           <p className='about--rating--great'>Great</p>
         </div>
@@ -140,14 +174,14 @@ const About = () => {
         <hr />
         <p className="about--reviews--post"><strong><em>Post a Review</em></strong></p>
         <div className='about--fill'>
-        <form onSubmit={handleFormSubmit}>
-          <textarea name="" id="" cols="1" rows="4" 
-            typeof='text' 
-            value={newData}
-            onChange={(event) => setNewData(event.target.value)}
-          />
-          <button type='submit' className='about--button'>SUBMIT</button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <textarea name="" id="" cols="1" rows="4" 
+              typeof='text' 
+              value={reviews}
+              onChange={(e) => setReviews(e.target.value)}
+            />
+            <button type="submit" className='about--button'>Submit</button>
+          </form>
         </div>
       </div>
     </div>
