@@ -63,11 +63,10 @@ const Error = () => {
             />
             <button type="submit" className='about--button'>Submit</button>
           </form>
+          <p className='error--upload'>Upload Image:</p>
         </div>
         <div>
-          <CameraUpload className='error--fill'>
-            <em>Upload Pharmacy picture</em> 
-          </CameraUpload>
+          <CameraUpload className='error--fill'/>
           <p className='error--fill'>Input address</p>
           <form onSubmit={handleSubmit}>
             <textarea name="" id="" cols="1" rows="4" 
