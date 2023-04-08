@@ -48,29 +48,6 @@ const About = () => {
       })
   }, [uniqueGuid])
 
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  
-  //   fetch(`${BASE_URL}/Review/AddReview`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-     
-  //     body: JSON.stringify({
-  //       "body": reviews,
-  //       "rating": rating,
-  //       "pharmacyId": item.id,
-  //     })
-  //   })
-  //   .then(res => res.json())
-   
-  //   .catch(error => console.error(error.message));
-  //   setReviews('');
-  //   setRating(0.0);
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 		fetch(`${BASE_URL}/Review/AddReview`, {
@@ -135,15 +112,15 @@ const About = () => {
         <div className='about--details'>
           <div>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
-            <p className='address'><Address address={item.location}/></p>
+            <div className='address'><Address address={item.location}/></div>
           </div>
           <div>
             <i className="fa fa-phone" aria-hidden="true"></i>
-            <p className='telephone'><PhoneNumber number={item.phoneNumber}/></p>
+            <div className='telephone'><PhoneNumber number={item.phoneNumber}/></div>
           </div>
           <div>
             <i className="fa fa-envelope-o" aria-hidden="true"></i>
-            <p className='mail'><EmailAddress email={item.email} /></p>
+            <div className='mail'><EmailAddress email={item.email} /></div>
           </div>
           <div>
             <i className="fa fa-clock-o" aria-hidden="true"></i>
