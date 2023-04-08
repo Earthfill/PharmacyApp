@@ -75,9 +75,9 @@ const About = () => {
     setShowPopup(true);
   };
 
-  const handleReviewSubmit = (review) => {
-    setReviews([...reviews, review]);
-  };
+  // const handleReviewSubmit = (review) => {
+  //   setReviews([...reviews, reviews]);
+  // };
 
   if (!isLoading) {
     return (

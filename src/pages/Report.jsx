@@ -4,6 +4,10 @@ import Reports from '../components/Reports'
 import Text from '../components/Text'
 
 const Report = () => {
+  // const handleReviewSubmit = (reports) => {
+  //   setReports([...reports, reports]);
+  // };
+
   return (
     <div>
       <Arrow />
