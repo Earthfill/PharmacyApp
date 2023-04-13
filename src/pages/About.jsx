@@ -101,8 +101,16 @@ const About = () => {
          <h4>{item.name}</h4>
          <span className='about--top--rating'>{item.rating}</span>
          <span className='about--top--rating'><RatedStar rating={item.rating}/></span>
-         <p>REG NO: {item.regNumber}</p>
+         <p>CERT NO: {item.regNumber}</p>
         </div>
+        <hr />
+        <div className='about--about'>
+          <h3>Resident Pharmacist</h3>
+        </div>
+          <div className='about--pharmacist'>
+          <i className="fa fa-user-plus" aria-hidden="true"></i>
+          <div className="pharmacist">Chike Dike</div>
+          </div>
         <hr />
         <div className='about--about'>
           <h3>About</h3>

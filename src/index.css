@@ -247,7 +247,12 @@ textarea {
   margin: 30px 10px 0 30px;
 }
 
-.fa-map-marker, .fa-phone, .fa-envelope-o, .fa-clock-o {
+.about--pharmacist {
+  font-size: 18px;
+  margin: 10px 10px 0 30px;
+}
+
+.fa-map-marker, .fa-phone, .fa-envelope-o, .fa-clock-o, .fa-user-plus {
   display: inline-block;
 }
 
@@ -263,7 +268,7 @@ textarea {
   color: black;
 }
 
-.address, .telephone, .mail, .availability {
+.address, .telephone, .mail, .availability, .pharmacist {
   margin: -20px 40px 20px 25px;
 }
 
