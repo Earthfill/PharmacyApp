@@ -144,16 +144,16 @@ const About = () => {
         </p>
         }
         <hr />
-        <p className='about--ratings'><strong><em>Rate this Pharmacy</em></strong></p>
+        <p className='about--ratings'><strong>Rate this Pharmacy</strong></p>
         <div className='about--rating'>
           <StarRating onRate={handleRate}/>
           {!showPopup && <p className='about--rating--bad'>Bad</p>}
           {!showPopup && <p className='about--rating--great'>Great</p>}
           {showPopup && <Popup />}
         </div>
-        {/* <p className='about--more'>
-          <a href={`./pages/report/${id}`}><em>Report this page?</em></a>
-        </p> */}
+        <p className='about--more'>
+          <Link to={`/about/report/${uniqueGuid}`}><em>Report this page?</em></Link>
+        </p>
         {/* {item.reviews.length < 1 ? <p></p> :
         <p className="about--more">
           <Link to={`/about/ratings/${uniqueGuid}`}><em>See All Ratings</em></Link>
@@ -168,7 +168,7 @@ const About = () => {
               value={reviews}
               onChange={(e) => setReviews(e.target.value)}
             />
-            <button type="submit" className='about--button'>Submit</button>
+            <button type="submit" className='about--button'>SUBMIT</button>
           </form>
         </div>
       </div>

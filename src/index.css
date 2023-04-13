@@ -11,13 +11,18 @@ body {
   font-size: 10px;
 }
 
+.address {
+  text-decoration: none;
+}
+
 a {
-  color: #45B6FE;
+  color: rgba(71, 71, 71, 0.8);
 }
 
 a:link {
   text-decoration: none;
-} 
+}
+
 
 .qr {
   height: 100vh;
@@ -331,8 +336,9 @@ textarea {
   border: none;
   cursor: pointer;
   display: block;
-  padding: 1.5%;
+  padding: 2%;
   border-radius: 4px;
+  opacity: 1;
 }
 
 .review {
@@ -354,8 +360,7 @@ textarea {
   display: inline-block;
 }
 
-.review--card {
-  margin: 60px -10px 50px;
+.review--card, .report--card {
   border: 1px solid rgba(100, 100, 100, 0.1);
   padding: 20px;
   position: relative;
@@ -364,7 +369,15 @@ textarea {
   box-shadow: 0px 10px 10px 0 rgba(71, 71, 71, 0.1);
 }
 
-.review--card:before {
+.review--card {
+  margin: 60px -10px 50px;
+}
+
+.report--card {
+  margin: 0 -10px 50px;
+}
+
+.review--card:before, .report--card:before {
   content: "";
   width: 0px;
   height: 0px;
@@ -377,7 +390,7 @@ textarea {
   bottom: -23px;
 }
 
-.review--card:after {
+.review--card:after, .report--card:after {
   content: "";
   width: 0px;
   height: 0px;
@@ -412,23 +425,29 @@ textarea {
 }
 
 .report {
-  width: 80%;
-  margin: 0 10%;
+  margin: 0 50px;
   font-size: 15px;
 }
 
 .report--main {
-  margin: 0 0 15px;
+  margin: 0 100px 0 0;
+  position: fixed;
+  top: 0;
+  right: 100;
+  z-index: 9999;
+  background-color: #fff;
+  padding-top: 4%;
+  padding-right: 70%;
+  padding-bottom: 4%;
+  padding-left: 3%;
+  display: inline-block;
 }
 
-.report--button {
-  background-color: #45B6FE;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  display: block;
-  margin: -1.1% 0 3% 81%;
-  padding: 1.5%;
+.report--form {
+  margin: 40px -10px -10px;
+  padding: 20px;
+  position: relative;
+  font-size: 12px;
 }
 
 .report--report { 
@@ -441,6 +460,19 @@ textarea {
   font-size: 10px;
   color: #474747;
   margin-right: -12%;
+}
+
+.report--more {
+  margin-bottom: 25px;
+  border: none;
+  background-color: #fff;
+  font-style: italic;
+  color: rgba(71, 71, 71, 0.8);
+  opacity: 1;
+}
+
+.report--more:hover {
+  opacity: 0.3;
 }
 
 .ratings {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import CameraUpload from '../components/CameraUpload';
 
 const Error = () => {
-  const [items, setItems] = useState([]);
+  const [item, setItem] = useState([]);
   const [error, setError] = useState(false);
 
   const [reports, setReports] = useState("");
@@ -20,7 +20,7 @@ const Error = () => {
       })
       .then(
         (result) => {
-          setItems(result.data);
+          setItem(result.data);
       })
       .catch(() => {
           setError(true);

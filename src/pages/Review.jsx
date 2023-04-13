@@ -12,6 +12,8 @@ const Review = () => {
 
   const params = useParams();
   const {uniqueGuid} = params;
+
+  const [visibleItems, setVisibleItems] = useState(3);
   
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
@@ -38,6 +40,10 @@ const Review = () => {
         })
   }, [uniqueGuid])
 
+  const handleShowMore = () => {
+    setVisibleItems(visibleItems + 5);
+  };
+
   if (!isLoading) {
     return (
       <div className='loading'>
@@ -58,14 +64,17 @@ const Review = () => {
       <Arrow />
       <div className='review'>
         <h3 className='review--main'>Ratings and reviews</h3>
-          {item?.map((element, index) => (
-            <div className='review--card' key={index}>
-              <p className='review--star'><RatedStar rating={element.rating}/></p>
+          {item.slice(0, visibleItems).map(element => (
+            <div className='review--card' key={element.id}>
+              <div className='review--star'><RatedStar rating={element.rating}/></div>
               <p className='review--text'>{element.body}</p>
                 <span className='review--anonymous'>--Anonymous</span>
                 <span className='review--time'>5 hours ago</span>
             </div>
-          ))}  
+          ))}
+          {visibleItems < item.length && (
+            <button onClick={handleShowMore} className='report--more'>Show More Reports</button>
+          )}
       </div>
     </div>
     )
