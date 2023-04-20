@@ -68,6 +68,7 @@ const About = () => {
 		.catch(error => console.error(error.message));
 		// onReviewSubmit(res.data);
     setReviews("");
+    setRating();
 		};
 
   const handleRate = (value) => {

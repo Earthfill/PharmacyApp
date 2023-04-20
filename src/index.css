@@ -272,6 +272,10 @@ textarea {
   margin: -20px 40px 20px 25px;
 }
 
+.mail {
+  word-wrap: break-word;
+}
+
 .about--anonymous {
   text-align: right;
   font-size: 10px;
