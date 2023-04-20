@@ -68,8 +68,8 @@ const Review = () => {
             <div className='review--card' key={element.id}>
               <div className='review--star'><RatedStar rating={element.rating}/></div>
               <p className='review--text'>{element.body}</p>
-                <span className='review--anonymous'>--Anonymous</span>
-                <span className='review--time'>5 hours ago</span>
+                <div className='review--anonymous'>--Anonymous</div>
+                <div className='review--time'>{element.timeStamp}</div>
             </div>
           ))}
           {visibleItems < item.length && (

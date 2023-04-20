@@ -109,7 +109,7 @@ const About = () => {
         </div>
           <div className='about--pharmacist'>
           <i className="fa fa-user-plus" aria-hidden="true"></i>
-          <div className="pharmacist">Chike Dike</div>
+          <div className="pharmacist">{item.pharmacist.firstName} {item.pharmacist.middleName} {item.pharmacist.lastName}</div>
           </div>
         <hr />
         <div className='about--about'>

@@ -418,15 +418,19 @@ textarea {
 }
 
 .review--anonymous {
-  margin-right: 45%;
+  margin-top: 10%;
 }
 
 .review--anonymous, .review--time {
-  display: inline-block;
+  display: block;
   font-size: 10px;
-  margin-top: 10%;
   font-weight: 400;
   font-style: italic;
+}
+
+.review--time {
+  text-align: right;
+  margin-top: -10px;
 }
 
 .report {
