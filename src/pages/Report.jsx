@@ -130,7 +130,7 @@ const Report = () => {
             <div className="report--card" key={element.id}>
               <div className="review--text">{element.body}</div>
                 <span className="review--anonymous">--Anonymous</span>
-                <span className="review--time">5 hours ago</span>
+                <span className="review--time">{element.timeStamp}</span>
             </div>
           ))}
           {expanded &&

@@ -161,7 +161,7 @@ const About = () => {
           {showPopup && <Popup />}
         </div>
         <p className='about--more'>
-          <Link to={`/about/report/${uniqueGuid}`}><em>Report this page?</em></Link>
+          <Link to={`/about/report/${uniqueGuid}`}><em>Report this pharmacy</em></Link>
         </p>
         {/* {item.reviews.length < 1 ? <p></p> :
         <p className="about--more">
