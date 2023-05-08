@@ -46,7 +46,7 @@ const About = () => {
           setError(true);
           setIsLoading(true);
       })
-  }, [uniqueGuid, reviews])
+  }, [uniqueGuid])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,7 +100,7 @@ const About = () => {
         <img src={item.logo} alt="" className="about--image" />
         <div className='about--info'>
          <h4>{item.name}</h4>
-         <span className='about--top--rating'>{item.rating !== NaN ? '0.0' : item.rating}</span>
+         <span className='about--top--rating'>{item.rating > 1.0 ? item.rating : '0.0'}</span>
          <span className='about--top--rating'><RatedStar rating={item.rating}/></span>
          <p>CERT NO: {item.regNumber}</p>
         </div>
