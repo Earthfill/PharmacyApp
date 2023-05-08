@@ -6,16 +6,15 @@ import { useState, useEffect } from 'react'
 // import ReportUserPopup from '../components/ReportUserPopup';
 
 const Report = () => {
-  const [item, setItem] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [item, setItem] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-  const [reports, setReports] = useState("");
+  const [reports, setReports] = useState("")
 
-  const [expanded, setExpanded] = useState(false);
-  const [visibleItems, setVisibleItems] = useState(3);
-
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false)
+  const [visibleItems, setVisibleItems] = useState(3)
+  const [hasMoreItems, setHasMoreItems] = useState(true)
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
@@ -56,28 +55,9 @@ const Report = () => {
 		})
 		.then(res => res.json())
 		
-		.catch(error => console.error(error.message));
-		setReports("");
-  };
-
-  const handleShowMore = () => {
-    setVisibleItems(visibleItems + 5);
-  };
-
-  // const handleReportUserClick = () => {
-  //   setPopupOpen(true);
-  // };
-
-  // const handleClosePopup = () => {
-  //   setPopupOpen(false);
-  // };
-
-  // const likelyReportUserOptions = [
-  //   { id: 1, label: 'Spam' },
-  //   { id: 2, label: 'Inappropriate content' },
-  //   { id: 3, label: 'Harassment' },
-  //   { id: 4, label: 'Fake account' },
-  // ];
+		.catch(error => console.error(error.message))
+		setReports("")
+  }
 
   const handleClick = () => {
     event.preventDefault();
@@ -85,7 +65,26 @@ const Report = () => {
     if (!expanded) {
       setExpanded(true);
     }
-  };
+  }
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
+    ) {
+      if (visibleItems < item.length) {
+        setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
+      } else {
+        setHasMoreItems(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   if (!isLoading) {
     return (
@@ -99,8 +98,6 @@ const Report = () => {
       </div>
     )
   }
-  // else if (item === null) {
-  //   return <div><Error /></div>;} 
   else {
   return (
     <div>
@@ -108,13 +105,6 @@ const Report = () => {
       <div className='report'>
         <div>
           <h3 className='report--main'>Reports</h3>
-          {/* <button onClick={handleReportUserClick} className='report--form'>Report User</button>
-          {isPopupOpen && (
-            <ReportUserPopup
-              options={likelyReportUserOptions}
-              onClose={handleClosePopup}
-          />
-          )}     */}
           <form onSubmit={handleSubmit} className='report--form'>
             <textarea name="" id="" cols="1" rows="4" 
               typeof='text' 
@@ -133,9 +123,8 @@ const Report = () => {
                 <span className="review--time">{element.timeStamp}</span>
             </div>
           ))}
-          {expanded &&
-          visibleItems < item.length && (
-            <button onClick={handleShowMore} className='report--more'>Show More Reports</button>
+          {expanded && hasMoreItems && (
+            <button onClick={handleScroll} className='report--more'>Show More Reports</button>
           )}
       </div>
     </div>

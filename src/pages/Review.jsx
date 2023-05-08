@@ -14,6 +14,7 @@ const Review = () => {
   const {uniqueGuid} = params;
 
   const [visibleItems, setVisibleItems] = useState(3);
+  const [hasMoreItems, setHasMoreItems] = useState(true);
   
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
@@ -40,9 +41,24 @@ const Review = () => {
         })
   }, [uniqueGuid])
 
-  const handleShowMore = () => {
-    setVisibleItems(visibleItems + 5);
-  };
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
+    ) {
+      if (visibleItems < item.length) {
+        setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
+      } else {
+        setHasMoreItems(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   if (!isLoading) {
     return (
@@ -73,7 +89,7 @@ const Review = () => {
             </div>
           ))}
           {visibleItems < item.length && (
-            <button onClick={handleShowMore} className='report--more'>Show More Reports</button>
+            <button onClick={handleScroll} className='report--more'>Show More Reports</button>
           )}
       </div>
     </div>

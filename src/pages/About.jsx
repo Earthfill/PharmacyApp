@@ -46,7 +46,7 @@ const About = () => {
           setError(true);
           setIsLoading(true);
       })
-  }, [uniqueGuid])
+  }, [uniqueGuid, reviews])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,7 +100,7 @@ const About = () => {
         <img src={item.logo} alt="" className="about--image" />
         <div className='about--info'>
          <h4>{item.name}</h4>
-         <span className='about--top--rating'>{item.rating}</span>
+         <span className='about--top--rating'>{item.rating !== NaN ? '0.0' : item.rating}</span>
          <span className='about--top--rating'><RatedStar rating={item.rating}/></span>
          <p>CERT NO: {item.regNumber}</p>
         </div>
@@ -140,7 +140,6 @@ const About = () => {
         <div className='about--reviews'>
           <h3>Ratings and reviews</h3>
           <p className='about--text--info'>
-            {/* {!item && "No reviews yet!"} */}
             {item.reviews.length < 1 ? "No reviews yet!": item.reviews[0].body}
           </p>
         </div>
@@ -149,7 +148,7 @@ const About = () => {
         }
         {item.reviews.length < 1 ? <p></p> :
         <p className='about--more'>
-          <Link to={`/about/review/${uniqueGuid}`}><em>See All Reviews</em></Link>
+          <Link to={`/about/review/${uniqueGuid}`}>See All Reviews</Link>
         </p>
         }
         <hr />
@@ -159,27 +158,23 @@ const About = () => {
           {!showPopup && <p className='about--rating--bad'>Bad</p>}
           {!showPopup && <p className='about--rating--great'>Great</p>}
           {showPopup && <Popup />}
+          {showPopup && 
+          <div className='about--fill'>
+            <form onSubmit={handleSubmit}>
+              <textarea name="" id="" cols="1" rows="2" 
+                typeof='text' 
+                placeholder='Post a review'
+                value={reviews}
+                onChange={(e) => setReviews(e.target.value)}
+              />
+              <button type="submit" className='about--button'>SUBMIT</button>
+            </form>
+          </div>
+          }
         </div>
         <p className='about--more'>
-          <Link to={`/about/report/${uniqueGuid}`}><em>Report this pharmacy</em></Link>
+          <Link to={`/about/report/${uniqueGuid}`}>Report this pharmacy</Link>
         </p>
-        {/* {item.reviews.length < 1 ? <p></p> :
-        <p className="about--more">
-          <Link to={`/about/ratings/${uniqueGuid}`}><em>See All Ratings</em></Link>
-        </p>
-        } */}
-        <hr />
-        <p className="about--reviews--post"><strong><em>Post a Review</em></strong></p>
-        <div className='about--fill'>
-          <form onSubmit={handleSubmit}>
-            <textarea name="" id="" cols="1" rows="4" 
-              typeof='text' 
-              value={reviews}
-              onChange={(e) => setReviews(e.target.value)}
-            />
-            <button type="submit" className='about--button'>SUBMIT</button>
-          </form>
-        </div>
       </div>
     </div>
     )
