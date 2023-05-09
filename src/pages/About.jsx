@@ -165,7 +165,7 @@ const About = () => {
         }
         <hr />
         <div className='about--ratings'>
-          <p className='about--title'><strong>Rate and Report this Pharmacy</strong></p>
+          <p className='about--title'><strong>Rate & Report</strong></p>
           {showPopup && <button type="submit" className='about--button' onClick={handleSubmit}>POST</button>}
         </div>
         <div className='about--rating'>
