@@ -5,7 +5,7 @@ import Error from './Error'
 import { Link,  useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import RatedStar from '../components/RatedStar';
-import Popup from '../components/Popup';
+import Popups from '../components/Popups';
 import PhoneNumber from '../components/PhoneNumber';
 import EmailAddress from '../components/EmailAddress';
 import Address from '../components/Address';
@@ -97,10 +97,20 @@ const About = () => {
     return (
       <div>
         <div className='about'>
-        <img src={item.logo} alt="" className="about--image" />
+          <div className="about--profile">
+            <img src={item.logo} alt="" className="about--image" />
+            <div className="verification--icon">
+              {!item.license && (
+                <span class="stamp--licensed">LICENSED</span>
+              )}
+              {item.license && (
+                <span class="stamp--unlicensed">NOT LICENSED</span>
+              )}
+            </div>
+          </div>
         <div className='about--info'>
          <h4>{item.name}</h4>
-         <span className='about--top--rating'>{item.rating > 1.0 ? item.rating : '0.0'}</span>
+         <span className='about--top--rating'>{item.rating > 1.0 ? item.rating.toFixed(1) : '0.0'}</span>
          <span className='about--top--rating'><RatedStar rating={item.rating}/></span>
          <p>CERT NO: {item.regNumber}</p>
         </div>
@@ -143,38 +153,42 @@ const About = () => {
             {item.reviews.length < 1 ? "No reviews yet!": item.reviews[0].body}
           </p>
         </div>
-        {item.reviews.length < 1 ? <p></p> :
+        <div className='about--text--info'>
+        {item.reviews.length < 1 ? <p></p> : item.reviews[0].body === "" ? "No reviews yet!":
         <p className='about--anonymous'><em>--Anonymous</em></p>
         }
+        </div>
         {item.reviews.length < 1 ? <p></p> :
-        <p className='about--more'>
-          <Link to={`/about/review/${uniqueGuid}`}>See All Reviews</Link>
-        </p>
+        <div className='about--more'>
+          {item.reviews[0].body === "" ? <p></p> : <Link to={`/about/review/${uniqueGuid}`}>See All Reviews</Link>}
+        </div>
         }
         <hr />
-        <p className='about--ratings'><strong>Rate this Pharmacy</strong></p>
+        <div className='about--ratings'>
+          <p className='about--title'><strong>Rate and Report this Pharmacy</strong></p>
+          {showPopup && <button type="submit" className='about--button' onClick={handleSubmit}>POST</button>}
+        </div>
         <div className='about--rating'>
-          <StarRating onRate={handleRate}/>
+          <StarRating onRate={handleRate} />
           {!showPopup && <p className='about--rating--bad'>Bad</p>}
           {!showPopup && <p className='about--rating--great'>Great</p>}
-          {showPopup && <Popup />}
+          {showPopup && <Popups />}
           {showPopup && 
           <div className='about--fill'>
-            <form onSubmit={handleSubmit}>
+            <form>
               <textarea name="" id="" cols="1" rows="2" 
                 typeof='text' 
                 placeholder='Post a review'
                 value={reviews}
                 onChange={(e) => setReviews(e.target.value)}
               />
-              <button type="submit" className='about--button'>SUBMIT</button>
             </form>
           </div>
           }
         </div>
-        <p className='about--more'>
-          <Link to={`/about/report/${uniqueGuid}`}>Report this pharmacy</Link>
-        </p>
+        <div className='about--more'>
+          <Link to={`/about/report/${item.id}`}>Reports page</Link>
+        </div>
       </div>
     </div>
     )

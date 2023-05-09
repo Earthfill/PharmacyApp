@@ -1,25 +1,29 @@
 import React from 'react'
 import Arrow from '../components/Arrow'
 import ReactLoading from "react-loading";
+import { useParams } from 'react-router-dom';
 
 import { useState, useEffect } from 'react'
-// import ReportUserPopup from '../components/ReportUserPopup';
+import ModalPopup from '../components/ModalPopup';
+// import InfiniteScroll from "react-infinite-scroll-component";
 
 const Report = () => {
   const [item, setItem] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
+  const params = useParams();
+  const {Id} = params;
+
   const [reports, setReports] = useState("")
 
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
-  const [hasMoreItems, setHasMoreItems] = useState(true)
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
-    fetch(`${BASE_URL}/Report/GetAllReports`)
+    fetch(`${BASE_URL}/Report/${Id}`)
       .then(res => {
         if (!res.ok) {
           throw new Error;
@@ -67,24 +71,14 @@ const Report = () => {
     }
   }
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
-    ) {
-      if (visibleItems < item.length) {
-        setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
-      } else {
-        setHasMoreItems(false);
-      }
+  const fetchMoreData = () => {
+    if (visibleItems >= item.length) {
+      return;
     }
+    setTimeout(() => {
+      setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
+    }, 1500);
   }
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   if (!isLoading) {
     return (
@@ -105,27 +99,32 @@ const Report = () => {
       <div className='report'>
         <div>
           <h3 className='report--main'>Reports</h3>
-          <form onSubmit={handleSubmit} className='report--form'>
-            <textarea name="" id="" cols="1" rows="4" 
-              typeof='text' 
-              value={reports}
-              onChange={(e) => setReports(e.target.value)}
-            />
-            <button type="submit" className='about--button'>SUBMIT</button>
-          </form>
-        </div>
-        <button href='' onClick={handleClick} className='report--more'>{!expanded && <p>See all reports</p>}</button>         
-          {expanded && 
-          item.slice(0, visibleItems).map(element => (
-            <div className="report--card" key={element.id}>
-              <div className="review--text">{element.body}</div>
-                <span className="review--anonymous">--Anonymous</span>
-                <span className="review--time">{element.timeStamp}</span>
+            <div className='report--page'>
+              <ModalPopup />
+              {/* <p className='report--head'>Make a report</p>
+              <form className='report--form'>
+                <textarea name="" id="" cols="1" rows="2" 
+                  typeof='text' 
+                  placeholder='Post a report'
+                  value={reports}
+                  onChange={(e) => setReports(e.target.value)}
+                />
+                <button onClick={handleSubmit} type="submit" className='report--button'>POST</button>
+              </form> */}
             </div>
-          ))}
-          {expanded && hasMoreItems && (
-            <button onClick={handleScroll} className='report--more'>Show More Reports</button>
-          )}
+        </div>
+        {/* <InfiniteScroll
+            dataLength={visibleItems}
+            next={fetchMoreData}
+            hasMore={visibleItems < item.length}
+            // loader={<h4>Loading...</h4>}
+          >          */}
+        <div className="report--card">
+          <div className="review--text">{item.body}</div>
+            <span className="review--anonymous">--Anonymous</span>
+            <span className="review--time">{item.timeStamp}</span>
+        </div>
+          {/* </InfiniteScroll> */}
       </div>
     </div>
     )

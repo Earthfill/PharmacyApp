@@ -4,17 +4,17 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import RatedStar from '../components/RatedStar';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Review = () => {
   const [item, setItem] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const [visibleItems, setVisibleItems] = useState(3);
+
   const params = useParams();
   const {uniqueGuid} = params;
-
-  const [visibleItems, setVisibleItems] = useState(3);
-  const [hasMoreItems, setHasMoreItems] = useState(true);
   
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
@@ -41,24 +41,14 @@ const Review = () => {
         })
   }, [uniqueGuid])
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
-    ) {
-      if (visibleItems < item.length) {
-        setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
-      } else {
-        setHasMoreItems(false);
-      }
+  const fetchMoreData = () => {
+    if (visibleItems >= item.length) {
+      return;
     }
-  }
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    setTimeout(() => {
+      setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
+    }, 1500);
+  };
 
   if (!isLoading) {
     return (
@@ -80,17 +70,22 @@ const Review = () => {
       <Arrow />
       <div className='review'>
         <h3 className='review--main'>Ratings and reviews</h3>
+        <InfiniteScroll
+          dataLength={visibleItems}
+          next={fetchMoreData}
+          hasMore={visibleItems < item.length}
+          loader={<h4>Loading...</h4>}
+        >
           {item.slice(0, visibleItems).map(element => (
+            element.body && (
             <div className='review--card' key={element.id}>
               <div className='review--star'><RatedStar rating={element.rating}/></div>
               <p className='review--text'>{element.body}</p>
                 <div className='review--anonymous'>--Anonymous</div>
                 <div className='review--time'>{element.timeStamp}</div>
             </div>
-          ))}
-          {visibleItems < item.length && (
-            <button onClick={handleScroll} className='report--more'>Show More Reports</button>
-          )}
+          )))}
+        </InfiniteScroll>
       </div>
     </div>
     )

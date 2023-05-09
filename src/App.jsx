@@ -11,11 +11,11 @@ import Dashboard from "./pages/Dashboard";
 function App() {
   return (
     <div className="App">
-      <Routes>x
+      <Routes>
         <Route path='/error' element={<Error />} />
         <Route path='/:uniqueGuid' element={<About />} />
         <Route path='/about/review/:uniqueGuid' element={<Review />} />
-        <Route path='/about/report/:uniqueGuid' element={<Report />} />
+        <Route path='/about/report/:Id' element={<Report />} />
         {/* <Route path='/about/ratings/:uniqueGuid' element={<Ratings />} /> */}
         <Route path='/admin/signin' element={<Signin />} />
         <Route path='/admin/user' element={<User />} />

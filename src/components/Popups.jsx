@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Popup = () => {
+const Popups = () => {
   return (
     <div className='popup'>
     	<p>Thanks for rating! &#128578;</p>
@@ -8,4 +8,4 @@ const Popup = () => {
   )
 }
 
-export default Popup
+export default Popups
