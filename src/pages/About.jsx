@@ -79,7 +79,7 @@ const About = () => {
   // const handleReviewSubmit = (review) => {
   //   setReviews([...reviews, reviews]);
   // };
-
+  
   if (!isLoading) {
     return (
       <div className='loading'>
@@ -104,7 +104,7 @@ const About = () => {
                 <span class="stamp--licensed">LICENSED</span>
               )}
               {item.license && (
-                <span class="stamp--unlicensed">NOT LICENSED</span>
+                <span class="stamp--unlicensed">UNLICENSED</span>
               )}
             </div>
           </div>

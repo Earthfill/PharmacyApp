@@ -243,11 +243,13 @@ textarea {
 .stamp--unlicensed {
   color: #D23;
   border: 3px double #D23;
-  transform: rotateY(30deg);
+  transform: rotate(-10deg);
 	-webkit-mask-position: 2rem 3rem;
-  font-size: 1.5rem;
-  margin-left: 30px;
-  margin-right: -130px;
+  border-radius: 10%;
+  font-size: 15px;
+  padding: 5px;
+  margin-left: 20px;
+  margin-right: -105px;
   display: flex;
 }
 

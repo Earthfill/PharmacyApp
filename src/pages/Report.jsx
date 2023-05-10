@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { useState, useEffect } from 'react'
 import ModalPopup from '../components/ModalPopup';
+import { result } from 'lodash';
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 const Report = () => {
@@ -19,6 +20,8 @@ const Report = () => {
 
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
+
+  const [reportTag, setReportTag] = useState("")
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
@@ -44,23 +47,50 @@ const Report = () => {
       })
   }, [])
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-		fetch(`${BASE_URL}/Report/AddReport`, {
+
+    fetch(`${BASE_URL}/ReportTag`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error
+      }
+      return res.json()  
+    })
+    .then(result => {
+      const reportTagId = result.data.id
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { longitude, latitude } = position.coords
+
+          const postData = {
+            body: reports,
+            longitude: longitude,
+            latitude: latitude,
+            pharmacyId: item.id,
+            reportTagId: reportTagId,
+            images: []
+        }
+      })
+    })
+
+		fetch(`${BASE_URL}/Report/${Id}`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
-		 
-			body: JSON.stringify({
-				"body": reports
-			})
+			body: JSON.stringify(postData)
 		})
-		.then(res => res.json())
-		
-		.catch(error => console.error(error.message))
-		setReports("")
+		.then(res => {
+      if (!res.ok) {
+        throw new Error('Failed to create report')
+      }
+    })
+    .catch(error => console.error(error.message))
+		error => {
+      console.error(error);
+    }
   }
 
   const handleClick = () => {
