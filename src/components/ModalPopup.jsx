@@ -6,6 +6,9 @@ const ModalPopup = ({ handleSubmit }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [selectedTags, setSelectedTags] = useState([]);
+  const [file, setFile] = useState(null)
+  const [showTextArea, setShowTextArea] = useState(false)
+  const [othersText, setOthersText] = useState('')
 
   const openModal = () => {
     setIsOpen(true);
@@ -23,8 +26,29 @@ const ModalPopup = ({ handleSubmit }) => {
         return [...prevSelectedTags, tagId];
       }
     });
+
+    if (tagId === 'others') {
+      setShowTextArea(true);
+    } else {
+      setShowTextArea(false);
+      setOthersText('');
+    }
   };
   
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0])
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('body', e.target.reports.value);
+    formData.append('pharmacyId', e.target.pharmacyId.value);
+    formData.append('reportTagId', JSON.stringify(selectedTags));
+    formData.append('image', file);
+
+    handleSubmit(formData);
+  };
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
@@ -39,53 +63,38 @@ const ModalPopup = ({ handleSubmit }) => {
             <div className="modal--close">
                 <button onClick={closeModal}></button>
             </div>
-          <form action="#" className='modal--form--handler'>
+          <form onSubmit={handleFormSubmit} className='modal--form--handler'>
+            {reportTags.map((tag) => (
+              <div key={tag.id}>
+                <input
+                  type="checkbox"
+                  name={`reportTag${tag.id}`}
+                  value={tag.id}
+                  className="reportTagId"
+                  onChange={() => handleCheckboxChange(tag.id)}
+                />
+                <label htmlFor={`reportTag${tag.id}`}>{tag.name}</label>
+              </div>
+            ))}
+            <div>
               <input 
-                type="checkbox"
-                name="reportTag1"
-                value="no pharmacist"
-                className='reportTagId'
-                onChange={() => handleCheckboxChange(reportTags[0].id)}
+                type="submit" 
+                value="Submit" 
+                className='modal--submit' 
+                onClick={(e) => handleSubmit(e, selectedTags)}
               />
-              <label htmlFor="reportTag1">{reportTags[0].name}</label><br/>
-              <input 
-                type="checkbox" 
-                name="reportTag2" 
-                value="pharmacy not found" 
-                className='reportTagId'
-                onChange={() => handleCheckboxChange(reportTags[1].id)}  
+              <label htmlFor="reportTagOthers">Others</label>
+            </div>
+            {showTextArea && (
+              <textarea
+                name="othersText"
+                placeholder="Please specify"
+                value={othersText}
+                onChange={(e) => setOthersText(e.target.value)}
               />
-              <label htmlFor="reportTag2">{reportTags[1].name}</label><br/>
-              <input 
-                type="checkbox" 
-                name="reportTag3" 
-                value="expired drugs" 
-                className='reportTagId'
-                onChange={() => handleCheckboxChange(reportTags[2].id)}  
-              />
-              <label htmlFor="reportTag3">{reportTags[2].name}</label><br/>
-              <input 
-                type="checkbox" 
-                name="reportTag4" 
-                value="expired license" 
-                className='reportTagId'
-                onChange={() => handleCheckboxChange(reportTags[3].id)}  
-              />
-              <label htmlFor="reportTag4">{reportTags[3].name}</label><br/>
-              <input 
-                type="checkbox" 
-                name="reportTag5" 
-                value="hard drugs" 
-                className='reportTagId'
-                onChange={() => handleCheckboxChange(reportTags[4].id)}  
-              />
-              <label htmlFor="reportTag5">{reportTags[4].name}</label><br/>
-            <input 
-              type="submit" 
-              value="Submit" 
-              className='modal--submit' 
-              onClick={(e) => handleSubmit(e, selectedTags)}
-            />
+            )}
+            <input type="file" name="image" onChange={handleFileChange} />
+            <input type="submit" value="Submit" className="modal--submit" />
           </form>
         </div>
       )}

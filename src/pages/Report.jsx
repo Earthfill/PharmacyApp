@@ -23,6 +23,8 @@ const Report = () => {
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
 
+  const [image, setImage] = useState(null);
+
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
@@ -53,31 +55,20 @@ const Report = () => {
 
   const handleSubmit = (e, selectedTags) => {
     e.preventDefault()
-
-    if (!navigator.geolocation) {
-      console.error('Geolocation is not supported bys your browser')
-      return
-    }
-    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { longitude, latitude } = position.coords
-        const postData = {
-          body: reports,
-          longitude: longitude,
-          latitude: latitude,
-          pharmacyId: item.id,
-          reportTagId: selectedTags,
-          images: []
-        }
+        const formData = new FormData()
+        formData.append('body', reports)
+        formData.append('longitude', longitude)
+        formData.append('latitude', latitude)
+        formData.append('pharmacyId', item.id)
+        formData.append('reportTagId', selectedTags)
+        formData.append('images', image)
 
         fetch(`${BASE_URL}/Report/AddReport`, {
           method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(postData)
+          body: formData
         })
         .then(res => {
           if (!res.ok) {
@@ -107,6 +98,11 @@ const Report = () => {
     }, 1500);
   }
 
+  const handleImageChange = (file) => {
+    setImage(file);
+  };
+  
+
   if (!isLoading) {
     return (
       <div className='loading'>
@@ -127,7 +123,7 @@ const Report = () => {
         <div>
           <h3 className='report--main'>Reports</h3>
             <div className='report--page'>
-              <ModalPopup handleSubmit={handleSubmit}/>
+              <ModalPopup handleSubmit={handleSubmit} setSelectedTags={setSelectedTags} setImage={setImage} reportTags={reportTags}/>
               {/* <p className='report--head'>Make a report</p>
               <form className='report--form'>
                 <textarea name="" id="" cols="1" rows="2" 
