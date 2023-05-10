@@ -18,13 +18,15 @@ const Report = () => {
 
   const [reports, setReports] = useState("")
 
+  const [selectedTags, setSelectedTags] = useState([]);
+
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
-    fetch(`${BASE_URL}/Review/${id}`)
+    fetch(`${BASE_URL}/Report/${id}`)
     .then(res => {
       if (!res.ok) {
         throw new Error;
@@ -49,39 +51,39 @@ const Report = () => {
 
   const { reportTags, error: tagsError } = useReportTags(BASE_URL)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, selectedTags) => {
     e.preventDefault()
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         const { longitude, latitude } = position.coords
         const postData = {
           body: reports,
           longitude: longitude,
           latitude: latitude,
           pharmacyId: item.id,
-          reportTagId: reportTag.id,
+          reportTagId: selectedTags,
           images: []
-      }
-    })
+        }
 
-		fetch(`${BASE_URL}/Report/AddReport`, {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(postData)
-		})
-		.then(res => {
-      if (!res.ok) {
-        throw new Error('Failed to create report')
+        fetch(`${BASE_URL}/Report/AddReport`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(postData)
+        })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error('Failed to create report')
+          }
+        })
+        .catch(error => console.error(error.message))
+      },
+      (error) => {
+        console.error(error)
       }
-    })
-    .catch(error => console.error(error.message))
-		error => {
-      console.error(error);
-    }
-  }
+  )}
 
   const handleClick = () => {
     setExpanded(!expanded);
