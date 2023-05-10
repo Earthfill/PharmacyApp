@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import useReportTags from '../hooks/useReportTags';
 
-const ModalPopup = () => {
-  const [item, setItem] = useState(null)
+const ModalPopup = ({ handleSubmit }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -15,41 +15,30 @@ const ModalPopup = () => {
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
-  useEffect(() => {
-    fetch(`${BASE_URL}/ReportTag`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error;
-        }
-        return res.json();
-      })
-      .then(
-        (result) => {
-          setItem(result.data);
-          setTimeout(() => {
-            setItem(result.data);
-          }, 900);
-      })
-  }, [])
+  const { reportTags, error: tagsError } = useReportTags(BASE_URL)
 
   return (
     <div className="modal">
       {!isOpen && <button onClick={openModal} className='modal--report'>Report this pharmacy</button>}
       {isOpen && (
         <div className='modal--form'>
-          <form action="#">
-            <select name="reports">
-              <option value="no pharmacist">{item[0].name}</option>
-              <option value="pharmacy not found">{item[1].name}</option>
-              <option value="expired drugs">{item[2].name}</option>
-              <option value="expired license">{item[3].name}</option>
-              <option value="hard drugs">{item[4].name}</option>
-            </select>
+          <div className='modal--form--header'>Select relevant reports</div>
+            <div className="modal--close">
+                <button onClick={closeModal}></button>
+            </div>
+          <form action="#" className='modal--form--handler'>
+              <input type="checkbox" name="reportTag1" value="no pharmacist" className='reportTagId'/>
+              <label htmlFor="reportTag1">{reportTags[0].name}</label><br/>
+              <input type="checkbox" name="reportTag2" value="pharmacy not found" className='reportTagId'/>
+              <label htmlFor="reportTag2">{reportTags[1].name}</label><br/>
+              <input type="checkbox" name="reportTag3" value="expired drugs" className='reportTagId'/>
+              <label htmlFor="reportTag3">{reportTags[2].name}</label><br/>
+              <input type="checkbox" name="reportTag4" value="expired license" className='reportTagId'/>
+              <label htmlFor="reportTag4">{reportTags[3].name}</label><br/>
+              <input type="checkbox" name="reportTag5" value="hard drugs" className='reportTagId'/>
+              <label htmlFor="reportTag5">{reportTags[4].name}</label><br/>
             <input type="submit" value="Submit" className='modal--submit' />
           </form>
-          <div className="modal-content">
-            <button onClick={closeModal}>&#10060;</button>
-          </div>
         </div>
       )}
     </div>

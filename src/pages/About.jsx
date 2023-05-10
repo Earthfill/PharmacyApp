@@ -48,7 +48,7 @@ const About = () => {
       })
   }, [uniqueGuid])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 		fetch(`${BASE_URL}/Review/AddReview`, {
 			method: 'POST',
@@ -79,7 +79,7 @@ const About = () => {
   // const handleReviewSubmit = (review) => {
   //   setReviews([...reviews, reviews]);
   // };
-  
+
   if (!isLoading) {
     return (
       <div className='loading'>
@@ -101,10 +101,10 @@ const About = () => {
             <img src={item.logo} alt="" className="about--image" />
             <div className="verification--icon">
               {!item.license && (
-                <span class="stamp--licensed">LICENSED</span>
+                <span className="stamp--licensed">LICENSED</span>
               )}
               {item.license && (
-                <span class="stamp--unlicensed">UNLICENSED</span>
+                <span className="stamp--unlicensed">UNLICENSED</span>
               )}
             </div>
           </div>

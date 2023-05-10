@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { useState, useEffect } from 'react'
 import ModalPopup from '../components/ModalPopup';
-import { result } from 'lodash';
+import useReportTags from '../hooks/useReportTags';
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 const Report = () => {
@@ -14,67 +14,57 @@ const Report = () => {
   const [error, setError] = useState(false)
 
   const params = useParams();
-  const {Id} = params;
+  const {id} = params;
 
   const [reports, setReports] = useState("")
 
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
 
-  const [reportTag, setReportTag] = useState("")
-
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
-    fetch(`${BASE_URL}/Report/${Id}`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error;
-        }
-        return res.json();
-      })
-      .then(
-        (result) => {
+    fetch(`${BASE_URL}/Review/${id}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error;
+      }
+      return res.json();
+    })
+    .then(
+      (result) => {
+        setItem(result.data);
+        setIsLoading(false);
+        setTimeout(() => {
           setItem(result.data);
-          setIsLoading(false);
-          setTimeout(() => {
-            setItem(result.data);
-            setIsLoading(true);
-          }, 900)
-      })
-      .catch(() => {
-          setError(true);
-      })
-  }, [])
+          setIsLoading(true);
+        }, 900);
+    })
+    .catch(() => {
+        setError(true);
+        setIsLoading(true);
+    })
+
+  }, [id])
+
+  const { reportTags, error: tagsError } = useReportTags(BASE_URL)
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    fetch(`${BASE_URL}/ReportTag`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error
+    e.preventDefault()
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { longitude, latitude } = position.coords
+        const postData = {
+          body: reports,
+          longitude: longitude,
+          latitude: latitude,
+          pharmacyId: item.id,
+          reportTagId: reportTag.id,
+          images: []
       }
-      return res.json()  
-    })
-    .then(result => {
-      const reportTagId = result.data.id
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const { longitude, latitude } = position.coords
-
-          const postData = {
-            body: reports,
-            longitude: longitude,
-            latitude: latitude,
-            pharmacyId: item.id,
-            reportTagId: reportTagId,
-            images: []
-        }
-      })
     })
 
-		fetch(`${BASE_URL}/Report/${Id}`, {
+		fetch(`${BASE_URL}/Report/AddReport`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -94,7 +84,6 @@ const Report = () => {
   }
 
   const handleClick = () => {
-    event.preventDefault();
     setExpanded(!expanded);
     if (!expanded) {
       setExpanded(true);
@@ -130,7 +119,7 @@ const Report = () => {
         <div>
           <h3 className='report--main'>Reports</h3>
             <div className='report--page'>
-              <ModalPopup />
+              <ModalPopup handleSubmit={handleSubmit}/>
               {/* <p className='report--head'>Make a report</p>
               <form className='report--form'>
                 <textarea name="" id="" cols="1" rows="2" 
