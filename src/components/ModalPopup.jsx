@@ -77,7 +77,7 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
               </div>
               <input 
                 type="submit" 
-                value="SUBMIT" 
+                value="Submit" 
                 className='modal--submit' 
                 onClick={(e) => handleSubmit(e, selectedTags)}
               />
