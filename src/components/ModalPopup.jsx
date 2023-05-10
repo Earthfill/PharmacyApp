@@ -2,13 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import useReportTags from '../hooks/useReportTags';
 
-const ModalPopup = ({ handleSubmit }) => {
+const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, setReports, reports, item }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [file, setFile] = useState(null)
-  const [showTextArea, setShowTextArea] = useState(false)
-  const [othersText, setOthersText] = useState('')
 
   const openModal = () => {
     setIsOpen(true);
@@ -25,29 +20,23 @@ const ModalPopup = ({ handleSubmit }) => {
       } else {
         return [...prevSelectedTags, tagId];
       }
-    });
-
-    if (tagId === 'others') {
-      setShowTextArea(true);
-    } else {
-      setShowTextArea(false);
-      setOthersText('');
-    }
+    })
   };
   
   const handleFileChange = (e) => {
-    setFile(e.target.files[0])
+    setImage(e.target.files[0])
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('body', e.target.reports.value);
-    formData.append('pharmacyId', e.target.pharmacyId.value);
+    formData.append('body', reports);
+    formData.append('pharmacyId', item.id);
     formData.append('reportTagId', JSON.stringify(selectedTags));
-    formData.append('image', file);
+    formData.append('image', e.target.image.files[0]);
 
     handleSubmit(formData);
+    setReports(e.target.reports.value)
   };
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
@@ -77,24 +66,22 @@ const ModalPopup = ({ handleSubmit }) => {
               </div>
             ))}
             <div>
+              <div className='modal--textarea'>
+                <p>Others</p>
+                <label htmlFor="reports">Additional Information:</label>
+                <textarea name="reports" id="reports" />
+              </div>
+              <div className='modal--image'>
+                <label htmlFor="image">Upload relevant images:</label>
+                <input type="file" name="image" onChange={handleFileChange} />
+              </div>
               <input 
                 type="submit" 
-                value="Submit" 
+                value="SUBMIT" 
                 className='modal--submit' 
                 onClick={(e) => handleSubmit(e, selectedTags)}
               />
-              <label htmlFor="reportTagOthers">Others</label>
             </div>
-            {showTextArea && (
-              <textarea
-                name="othersText"
-                placeholder="Please specify"
-                value={othersText}
-                onChange={(e) => setOthersText(e.target.value)}
-              />
-            )}
-            <input type="file" name="image" onChange={handleFileChange} />
-            <input type="submit" value="Submit" className="modal--submit" />
           </form>
         </div>
       )}

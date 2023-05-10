@@ -22,6 +22,7 @@ const About = () => {
   const [reviews, setReviews] = useState("");
 
   const [showPopup, setShowPopup] = useState(false);
+  const [isPosted, setIsPosted] = useState(false);
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
   
@@ -69,6 +70,7 @@ const About = () => {
 		// onReviewSubmit(res.data);
     setReviews("");
     setRating();
+    setIsPosted(true)
 		};
 
   const handleRate = (value) => {
@@ -100,10 +102,10 @@ const About = () => {
           <div className="about--profile">
             <img src={item.logo} alt="" className="about--image" />
             <div className="verification--icon">
-              {!item.license && (
+              {!item.licenseExpired && (
                 <span className="stamp--licensed">LICENSED</span>
               )}
-              {item.license && (
+              {item.licenseExpired && (
                 <span className="stamp--unlicensed">UNLICENSED</span>
               )}
             </div>
@@ -178,13 +180,14 @@ const About = () => {
             <form>
               <textarea name="" id="" cols="1" rows="2" 
                 typeof='text' 
-                placeholder='Post a review'
+                placeholder='Post a review (optional)'
                 value={reviews}
                 onChange={(e) => setReviews(e.target.value)}
               />
             </form>
           </div>
           }
+          {isPosted && <p className='about--posting'>Thanks for posting!</p>}
         </div>
         <div className='about--more'>
           <Link to={`/about/report/${item.id}`}>Reports page</Link>

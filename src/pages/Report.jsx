@@ -123,7 +123,16 @@ const Report = () => {
         <div>
           <h3 className='report--main'>Reports</h3>
             <div className='report--page'>
-              <ModalPopup handleSubmit={handleSubmit} setSelectedTags={setSelectedTags} setImage={setImage} reportTags={reportTags}/>
+              <ModalPopup 
+                handleSubmit={handleSubmit}
+                setSelectedTags={setSelectedTags} 
+                selectedTags={selectedTags}
+                setImage={setImage} 
+                reportTags={reportTags}
+                setReports={setReports}  
+                reports={reports}
+                item={item}
+              />
               {/* <p className='report--head'>Make a report</p>
               <form className='report--form'>
                 <textarea name="" id="" cols="1" rows="2" 

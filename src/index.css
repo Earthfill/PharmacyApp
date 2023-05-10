@@ -395,7 +395,9 @@ div.about--text--info {
   border: none;
   cursor: pointer;
   background-color: #fff;
-  margin-left: 130px;
+  position: absolute;
+  right: 15px;
+  margin-top: 5px;
 }
 
 .modal {
@@ -410,7 +412,7 @@ div.about--text--info {
 }
 
 .modal--form {
-  /* border: 1px solid rgba(100, 100, 100, 0.3); */
+  margin-right: 15%;
 }
 
 .modal--form--header {
@@ -446,6 +448,10 @@ div.about--text--info {
 
 .modal--form--handler {
   margin: 5px 0 5px 55px;
+}
+
+.modal--image {
+  margin-top: 15px;
 }
 
 .reportTagId {
