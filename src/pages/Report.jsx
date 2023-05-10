@@ -53,6 +53,12 @@ const Report = () => {
 
   const handleSubmit = (e, selectedTags) => {
     e.preventDefault()
+
+    if (!navigator.geolocation) {
+      console.error('Geolocation is not supported bys your browser')
+      return
+    }
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { longitude, latitude } = position.coords
