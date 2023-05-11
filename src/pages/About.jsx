@@ -9,6 +9,8 @@ import Popups from '../components/Popups';
 import PhoneNumber from '../components/PhoneNumber';
 import EmailAddress from '../components/EmailAddress';
 import Address from '../components/Address';
+import ModalPharmacist from '../components/ModalPharmacist';
+import ModalPopup from '../components/ModalPopup';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -120,10 +122,7 @@ const About = () => {
         <div className='about--about'>
           <h3>Resident Pharmacist</h3>
         </div>
-          <div className='about--pharmacist'>
-          <i className="fa fa-user-plus" aria-hidden="true"></i>
-          <div className="pharmacist">{item.pharmacist.firstName} {item.pharmacist.middleName} {item.pharmacist.lastName}</div>
-          </div>
+          <ModalPharmacist item={item}/>
         <hr />
         <div className='about--about'>
           <h3>About</h3>
@@ -189,6 +188,7 @@ const About = () => {
           }
           {isPosted && <p className='about--posting'>Thanks for posting!</p>}
         </div>
+        <ModalPopup />
         <div className='about--more'>
           <Link to={`/about/report/${item.id}`}>Reports page</Link>
         </div>

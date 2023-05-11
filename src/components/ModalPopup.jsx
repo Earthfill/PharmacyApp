@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import useReportTags from '../hooks/useReportTags';
 
 const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, setReports, reports, item }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [showTextarea, setShowTextarea] = useState(false)
+  const [showImagearea, setShowImagearea] = useState(false)
 
   const openModal = () => {
     setIsOpen(true);
@@ -43,48 +45,52 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
 
   const { reportTags, error: tagsError } = useReportTags(BASE_URL)
 
+  const handleOtherClick = () => {
+    setShowTextarea(!showTextarea)
+  }
+
+  const handleAnotherClick = () => {
+    setShowImagearea(!showImagearea)
+  }
+
   return (
     <div className="modal">
       {!isOpen && <button onClick={openModal} className='modal--report'>Report this pharmacy</button>}
       {isOpen && (
         <div className='modal--form'>
-          <div className='modal--form--header'>Select relevant reports</div>
-            <div className="modal--close">
-                <button onClick={closeModal}></button>
+          <div className='modal--content'>
+            <div className='modal--form--header'>Select relevant reports</div>
+            <button className='modal--close--button' onClick={closeModal}>&#10060;</button>
+            <form onSubmit={handleFormSubmit} className='modal--form--handler'>
+              {reportTags.map((tag) => (
+                <div key={tag.id}>
+                  <input
+                    type="checkbox"
+                    name={`reportTag${tag.id}`}
+                    value={tag.id}
+                    className="reportTagId"
+                    onChange={() => handleCheckboxChange(tag.id)}
+                  />
+                  <label htmlFor={`reportTag${tag.id}`}>{tag.name}</label>
+                </div>
+              ))}
+              <div>
+                <div className='modal--textarea'>
+                  <button onClick={handleOtherClick} className='modal--textarea--others'>Additional Information</button>
+                  {showTextarea && <textarea name="reports" cols='1' rows='2' placeholder='Post a report here (optional)'/>}
+                </div>
+                <div className='modal--image'>
+                  <button className='modal--textarea--others' onClick={handleAnotherClick}>Upload relevant images:</button>
+                  {showImagearea && <input type="file" name="image" onChange={handleFileChange} className='modal--file--upload'/>}
+                </div>
+                <button type="submit" className='modal--submit' onClick={(e) => handleSubmit(e, selectedTags)}>
+                  POST
+                </button>
+              </div>
+            </form>
             </div>
-          <form onSubmit={handleFormSubmit} className='modal--form--handler'>
-            {reportTags.map((tag) => (
-              <div key={tag.id}>
-                <input
-                  type="checkbox"
-                  name={`reportTag${tag.id}`}
-                  value={tag.id}
-                  className="reportTagId"
-                  onChange={() => handleCheckboxChange(tag.id)}
-                />
-                <label htmlFor={`reportTag${tag.id}`}>{tag.name}</label>
-              </div>
-            ))}
-            <div>
-              <div className='modal--textarea'>
-                <p>Others</p>
-                <label htmlFor="reports">Additional Information:</label>
-                <textarea name="reports" id="reports" />
-              </div>
-              <div className='modal--image'>
-                <label htmlFor="image">Upload relevant images:</label>
-                <input type="file" name="image" onChange={handleFileChange} />
-              </div>
-              <input 
-                type="submit" 
-                value="Submit" 
-                className='modal--submit' 
-                onClick={(e) => handleSubmit(e, selectedTags)}
-              />
-            </div>
-          </form>
-        </div>
-      )}
+          </div>
+        )}
     </div>
   )
 }
