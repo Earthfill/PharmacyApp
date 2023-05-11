@@ -190,7 +190,7 @@ const About = () => {
         </div>
         <ModalPopup />
         <div className='about--more'>
-          <Link to={`/about/report/${item.id}`}>Reports page</Link>
+          <Link to={`/about/report/${item.id}`}>View all reports</Link>
         </div>
       </div>
     </div>

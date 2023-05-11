@@ -6,6 +6,7 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
   const [isOpen, setIsOpen] = useState(false)
   const [showTextarea, setShowTextarea] = useState(false)
   const [showImagearea, setShowImagearea] = useState(false)
+  const [showThings, setShowThings] = useState(false)
 
   const openModal = () => {
     setIsOpen(true);
@@ -53,16 +54,20 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
     setShowImagearea(!showImagearea)
   }
 
+  const handleThings = () => {
+    setShowThings(!showThings)
+  }
+
   return (
     <div className="modal">
       {!isOpen && <button onClick={openModal} className='modal--report'>Report this pharmacy</button>}
       {isOpen && (
         <div className='modal--form'>
           <div className='modal--content'>
-            <div className='modal--form--header'>Select relevant reports</div>
-            <button className='modal--close--button' onClick={closeModal}>&#10060;</button>
+          <button className='modal--close--button' onClick={closeModal}>&#10060;</button>
+          <button className='modal--form--header' onClick={handleThings}>SELECT RELEVANT REPORTS</button>
             <form onSubmit={handleFormSubmit} className='modal--form--handler'>
-              {reportTags.map((tag) => (
+              {showThings && reportTags.map((tag) => (
                 <div key={tag.id}>
                   <input
                     type="checkbox"
@@ -80,7 +85,7 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
                   {showTextarea && <textarea name="reports" cols='1' rows='2' placeholder='Post a report here (optional)'/>}
                 </div>
                 <div className='modal--image'>
-                  <button className='modal--textarea--others' onClick={handleAnotherClick}>Upload relevant images:</button>
+                  <button className='modal--textarea--others' onClick={handleAnotherClick}>Upload relevant image:</button>
                   {showImagearea && <input type="file" name="image" onChange={handleFileChange} className='modal--file--upload'/>}
                 </div>
                 <button type="submit" className='modal--submit' onClick={(e) => handleSubmit(e, selectedTags)}>

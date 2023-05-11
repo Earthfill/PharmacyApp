@@ -284,6 +284,7 @@ textarea {
 
 .popup--content--regno, .popup--content--phone, .popup--content--email {
   font-size: 14px;
+  margin-top: 5px;
 }
 
 .close-button {
@@ -483,14 +484,20 @@ div.about--text--info {
 }
 
 .modal--form--header {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 15x;
   margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  color: #45B6FE
 }
 
 .modal--form--handler {
   display: flex;
   flex-direction: column;
+}
+
+.reportTagId {
+  margin-right: 10px;
 }
 
 .modal--textarea {
@@ -500,7 +507,6 @@ div.about--text--info {
 .modal--textarea--others {
   background: none;
   border: none;
-  text-decoration: underline;
   cursor: pointer;
   margin-bottom: 5px;
 }
@@ -546,17 +552,10 @@ div.about--text--info {
 }
 
 .modal--report {
-  background-color: #45b6fe;
-  color: #fff;
+  color: #45b6fe;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.modal--report:focus {
-  outline: none;
+  background-color: transparent;
+  margin-left: 25px;
 }
 
 /* .modal--form button {
