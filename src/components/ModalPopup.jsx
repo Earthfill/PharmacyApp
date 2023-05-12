@@ -1,12 +1,15 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useReportTags from '../hooks/useReportTags';
+import { Chip } from '@mui/material';
 
-const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, setReports, reports, item }) => {
+const ModalPopup = ({ handleSubmit, setImage, setReports, reports, item }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [showTextarea, setShowTextarea] = useState(false)
   const [showImagearea, setShowImagearea] = useState(false)
   const [showThings, setShowThings] = useState(false)
+
+  const [selectedTags, setSelectedTags] = useState([])
 
   const openModal = () => {
     setIsOpen(true);
@@ -19,9 +22,9 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
   const handleCheckboxChange = (tagId) => {
     setSelectedTags((prevSelectedTags) => {
       if (prevSelectedTags.includes(tagId)) {
-        return prevSelectedTags.filter((id) => id !== tagId);
+        return prevSelectedTags.filter((id) => id !== tagId)
       } else {
-        return [...prevSelectedTags, tagId];
+        return [...prevSelectedTags, tagId]
       }
     })
   };
@@ -67,21 +70,31 @@ const ModalPopup = ({ handleSubmit, setSelectedTags, selectedTags ,setImage, set
           <button className='modal--close--button' onClick={closeModal}>&#10060;</button>
           <button className='modal--form--header' onClick={handleThings}>SELECT RELEVANT REPORTS</button>
             <form onSubmit={handleFormSubmit} className='modal--form--handler'>
+              <div className='modal--chips'>
               {showThings && reportTags.map((tag) => (
-                <div key={tag.id}>
-                  <input
-                    type="checkbox"
-                    name={`reportTag${tag.id}`}
-                    value={tag.id}
-                    className="reportTagId"
-                    onChange={() => handleCheckboxChange(tag.id)}
-                  />
-                  <label htmlFor={`reportTag${tag.id}`}>{tag.name}</label>
-                </div>
+                // <div key={tag.id}>
+                //   <input
+                //     type="checkbox"
+                //     name={`reportTag${tag.id}`}
+                //     value={tag.id}
+                //     className="reportTagId"
+                //     onChange={() => handleCheckboxChange(tag.id)}
+                //   />
+                //   <label htmlFor={`reportTag${tag.id}`}>{tag.name}</label>
+                // </div>
+                <Chip 
+                  key={tag.id}
+                  label={tag.name}
+                  clickable
+                  onClick={() => handleCheckboxChange(tag.id)}
+                  color={selectedTags.includes(tag.id) ? 'primary' : 'default'}
+                  className='reportTagId'
+                /> 
               ))}
+              </div>
               <div>
                 <div className='modal--textarea'>
-                  <button onClick={handleOtherClick} className='modal--textarea--others'>Additional Information</button>
+                  <button onClick={handleOtherClick} className='modal--textarea--others'>Other reports</button>
                   {showTextarea && <textarea name="reports" cols='1' rows='2' placeholder='Post a report here (optional)'/>}
                 </div>
                 <div className='modal--image'>

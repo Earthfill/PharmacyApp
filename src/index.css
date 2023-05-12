@@ -496,8 +496,36 @@ div.about--text--info {
   flex-direction: column;
 }
 
+.modal--chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal--show {
+  display: inline;
+}
+
 .reportTagId {
-  margin-right: 10px;
+  display: inline-block;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 25px;
+  background-color: #45B6FE;
+  margin-top: 8px;
+  font-size: 15px;
+  border: none;
+}
+
+.reportTagId--clciked {
+  display: inline-block;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 25px;
+  background-color: #000;
+  margin-top: 8px;
+  font-size: 15px;
+  border: none;
 }
 
 .modal--textarea {
@@ -509,6 +537,7 @@ div.about--text--info {
   border: none;
   cursor: pointer;
   margin-bottom: 5px;
+  color: #45B6FE;
 }
 
 .modal--textarea--others:focus {

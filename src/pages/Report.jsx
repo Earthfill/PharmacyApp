@@ -18,8 +18,6 @@ const Report = () => {
 
   const [reports, setReports] = useState("")
 
-  const [selectedTags, setSelectedTags] = useState([]);
-
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
 
@@ -125,7 +123,6 @@ const Report = () => {
             <div className='report--page'>
               <ModalPopup 
                 handleSubmit={handleSubmit}
-                setSelectedTags={setSelectedTags} 
                 selectedTags={selectedTags}
                 setImage={setImage} 
                 reportTags={reportTags}
