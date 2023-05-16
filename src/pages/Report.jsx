@@ -4,8 +4,6 @@ import ReactLoading from "react-loading";
 import { useParams } from 'react-router-dom';
 
 import { useState, useEffect } from 'react'
-import ModalPopup from '../components/ModalPopup';
-import useReportTags from '../hooks/useReportTags';
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 const Report = () => {
@@ -16,14 +14,8 @@ const Report = () => {
   const params = useParams();
   const {id} = params;
 
-  const [reports, setReports] = useState("")
-
   const [expanded, setExpanded] = useState(false)
   const [visibleItems, setVisibleItems] = useState(3)
-
-  const [image, setImage] = useState(null);
-
-  const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
     fetch(`${BASE_URL}/Report/${id}`)
@@ -49,36 +41,6 @@ const Report = () => {
 
   }, [id])
 
-  const { reportTags, error: tagsError } = useReportTags(BASE_URL)
-
-  const handleSubmit = (e, selectedTags) => {
-    e.preventDefault()
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { longitude, latitude } = position.coords
-        const formData = new FormData()
-        formData.append('body', reports)
-        formData.append('longitude', longitude)
-        formData.append('latitude', latitude)
-        formData.append('pharmacyId', item.id)
-        formData.append('reportTagId', selectedTags)
-        formData.append('images', image)
-
-        fetch(`${BASE_URL}/Report/AddReport`, {
-          method: 'POST',
-          body: formData
-        })
-        .then(res => {
-          if (!res.ok) {
-            throw new Error('Failed to create report')
-          }
-        })
-        .catch(error => console.error(error.message))
-      },
-      (error) => {
-        console.error(error)
-      }
-  )}
 
   const handleClick = () => {
     setExpanded(!expanded);
@@ -95,11 +57,6 @@ const Report = () => {
       setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
     }, 1500);
   }
-
-  const handleImageChange = (file) => {
-    setImage(file);
-  };
-  
 
   if (!isLoading) {
     return (
@@ -121,15 +78,6 @@ const Report = () => {
         <div>
           <h3 className='report--main'>Reports</h3>
             <div className='report--page'>
-              <ModalPopup 
-                handleSubmit={handleSubmit}
-                selectedTags={selectedTags}
-                setImage={setImage} 
-                reportTags={reportTags}
-                setReports={setReports}  
-                reports={reports}
-                item={item}
-              />
               {/* <p className='report--head'>Make a report</p>
               <form className='report--form'>
                 <textarea name="" id="" cols="1" rows="2" 

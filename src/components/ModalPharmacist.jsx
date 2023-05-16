@@ -17,7 +17,7 @@ const ModalPharmacist = ({ item }) => {
     <div>
       {!isOpen && <div className='about--pharmacist'>
         <i className="fa fa-user-plus" aria-hidden="true"></i>
-        <div className="pharmacist" onClick={openModal}>{item.pharmacist.firstName} {item.pharmacist.middleName} {item.pharmacist.lastName}</div>
+        <div className="pharmacist" onClick={openModal}>{item.pharmacist.firstName} {item.pharmacist.middleName = '' ? '' : item.pharmacist.middleName} {item.pharmacist.lastName}</div>
       </div>}
       {isOpen && (
         <div className='modal--popup'>

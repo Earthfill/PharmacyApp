@@ -31,12 +31,9 @@ a:link {
 }
 
 .arrow {
-  /* margin: 50px 0 30px 5%;
-  position: relative; */
   position: fixed;
   top: 0;
   left: 0;
-  /* right: 0; */
   z-index: 9999;
   background-color: #fff;
   padding: 10px;
@@ -48,7 +45,6 @@ a:link {
   background-color: rgba(71, 71, 71, 0.1);
   height: 30px;
   width: 30px;
-  /* padding: 10px; */
   border: none;
 }
 
@@ -168,7 +164,6 @@ p.error--fill {
   border: none;
   cursor: pointer;
   display: block;
-  /* margin: -1.1% 0 3% 81%; */
   padding: 1.5%;
   border-radius: 4px;
 }
@@ -213,8 +208,6 @@ textarea {
 .about--image {
   height: 100px;
   width: 100px;
-  /* display: block; */
-  /* margin: 0px auto 0; */
   border-radius: 50%;
 }
 
@@ -355,10 +348,15 @@ div.about--text--info {
 .about--pharmacist {
   font-size: 18px;
   margin: 10px 10px 0 30px;
+  color: #45B6FE;
 }
 
 .fa-map-marker, .fa-phone, .fa-envelope-o, .fa-clock-o, .fa-user-plus {
   display: inline-block;
+}
+
+.fa-user-plus {
+  color: #000;
 }
 
 .fa-map-marker {
@@ -402,7 +400,6 @@ div.about--text--info {
 
 .about--rating {
   text-align: center;
-  /* margin-top: 1%; */
   padding: 2.5%;
 }
 
@@ -506,18 +503,7 @@ div.about--text--info {
   display: inline;
 }
 
-.reportTagId {
-  display: inline-block;
-  color: #fff;
-  padding: 8px 20px;
-  border-radius: 25px;
-  background-color: #45B6FE;
-  margin-top: 8px;
-  font-size: 15px;
-  border: none;
-}
-
-.reportTagId--clciked {
+.reportTagId--clicked {
   display: inline-block;
   color: #fff;
   padding: 8px 20px;
@@ -586,10 +572,6 @@ div.about--text--info {
   background-color: transparent;
   margin-left: 25px;
 }
-
-/* .modal--form button {
-  margin-right: 10px;
-} */
 
 .review {
   font-size: 15px;
@@ -774,13 +756,6 @@ div.about--text--info {
   vertical-align: middle;
   margin-top: 15px;
 }
-
-/* .ratings--star {
-  margin-left: 0;  
-} */
-/* .ratings--star--empty .fa-star {
-  color: rgba(71, 71, 71, 0.15);
-} */
 
 /* Three column layout */
 .side {

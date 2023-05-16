@@ -7,7 +7,7 @@ import RatedStar from '../components/RatedStar';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const Review = () => {
-  const [item, setItem] = useState(null);
+  const [item, setItem] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -47,7 +47,7 @@ const Review = () => {
     }
     setTimeout(() => {
       setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
-    }, 1500);
+    }, 10);
   };
 
   if (!isLoading) {
@@ -70,12 +70,6 @@ const Review = () => {
       <Arrow />
       <div className='review'>
         <h3 className='review--main'>Ratings and reviews</h3>
-        <InfiniteScroll
-          dataLength={visibleItems}
-          next={fetchMoreData}
-          hasMore={visibleItems < item.length}
-          loader={<h4>Loading...</h4>}
-        >
           {item.slice(0, visibleItems).map(element => (
             element.body && (
             <div className='review--card' key={element.id}>
@@ -85,7 +79,7 @@ const Review = () => {
                 <div className='review--time'>{element.timeStamp}</div>
             </div>
           )))}
-        </InfiniteScroll>
+          <button onClick={fetchMoreData}>Show more reviews</button>
       </div>
     </div>
     )

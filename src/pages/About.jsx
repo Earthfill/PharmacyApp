@@ -188,7 +188,7 @@ const About = () => {
           }
           {isPosted && <p className='about--posting'>Thanks for posting!</p>}
         </div>
-        <ModalPopup />
+        <ModalPopup item={item} />
         <div className='about--more'>
           <Link to={`/about/report/${item.id}`}>View all reports</Link>
         </div>
