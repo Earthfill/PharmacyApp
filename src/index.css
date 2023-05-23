@@ -600,7 +600,8 @@ input {
   color: #45B6FE;
   border: none;
   background-color: transparent;
-  margin: 0 0 0 25px;
+  margin: 0 0 0 6.5%;
+  font-size: 15px;
 }
 
 .review {
