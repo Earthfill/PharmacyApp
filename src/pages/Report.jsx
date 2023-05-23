@@ -5,48 +5,57 @@ import axios from 'axios';
 import Arrow from '../components/Arrow'
 
 const Report = () => {
-  const [item, setItem] = useState()
-  const [ritem, setRItem] = useState(null)
-  
+  const [item, setItem] = useState([])
+
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
   const params = useParams();
   const {id} = params;
 
-  const [currentPage, setCurrentPage] = useState(3);
-  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
-    const fetchData = () => {
-      axios.get(`${BASE_URL}/Report/paged?PageNumber=${currentPage}&PharmacyId=${id}`)
-        .then(response => {
-          const result = response.data;
-          setItem(result.data);
-          setIsLoading(false);
-          setTotalPages(result.totalPages);
-  
-          setTimeout(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`${BASE_URL}/Report/paged?PageNumber=${currentPage}&PharmacyId=${id}`);
+        const result = response.data;
+        setItem(prevItems => [...prevItems, ...result.data]);
+        setIsLoading(false);
+        setHasMore(result.totalPages > currentPage);
+
+        setTimeout(() => {
             setItem(result.data);
             setIsLoading(true);
           }, 900);
-        })
-        .catch(error => {
-          setError(true);
-          setIsLoading(true);
-        });
+      } catch (error) {
+        setError(true);
+        setIsLoading(false);
+      }
     };
   
     fetchData();
-    
- 
   }, [id, currentPage]);
-  console.log(item);
-  const goToPage = (page) => {
-    setCurrentPage(page);
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + window.pageYOffset >=
+        document.documentElement.offsetHeight - 500 &&
+      !isLoading &&
+      hasMore
+    ) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLoading, hasMore]);
 
   if (!isLoading) {
     return (
@@ -64,26 +73,17 @@ const Report = () => {
   return (
     <div>
       <Arrow />
-
       <div className='report'>
         <div>
           <h3 className='report--main'>Reports</h3>
-            {item.map((element) => (
+          {item.map((element) => (
+            element.body && (
             <div className="report--card" key={element.id}>
               <div className="review--text">{element.body}</div>
               <span className="review--anonymous">--Anonymous</span>
               <span className="review--time">{element.timeStamp}</span>
             </div>
-            ))}
-
-          <div className='review--paged'>
-            <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
-              Next
-            </button>
-          </div>
+            )))}
         </div>
       </div>
     </div>

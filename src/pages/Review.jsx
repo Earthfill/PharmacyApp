@@ -6,11 +6,9 @@ import Arrow from '../components/Arrow'
 import RatedStar from '../components/RatedStar';
 
 const Review = () => {
-  const [item, setItem] = useState(null);
+  const [item, setItem] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-
-  const [visibleItems, setVisibleItems] = useState(3);
 
   const params = useParams();
   const {uniqueGuid} = params;
@@ -18,31 +16,39 @@ const Review = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const result = await pharmacyService.getByGuid(uniqueGuid)
-        setItem(result.data.reviews)
+        setItem(prevItem => [...prevItem, ...result.data.reviews])
         setIsLoading(false)
+
         setTimeout(() => {
           setItem(result.data.reviews)
           setIsLoading(true)
         }, 900)
       } catch (error) {
         setError(true);
-        setIsLoading(true);
-        console.error('Error', error);
+        setIsLoading(false);
       }
     }
     
     fetchData()
   }, [uniqueGuid]);
 
-  const fetchMoreData = () => {
-    if (visibleItems >= item.length) {
-      return;
-    }
-    setTimeout(() => {
-      setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
-    }, 10);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.pageYOffset >= document.documentElement.offsetHeight - 500 &&
+        !isLoading
+      ) {
+        fetchData();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isLoading]);
 
   if (!isLoading) {
     return (
@@ -66,7 +72,6 @@ const Review = () => {
         <h3 className='review--main'>Ratings and reviews</h3>
           {item
             .sort((a, b) => new Date(b.timeStamp) - new Date(a.timeStamp))
-            .slice(0, visibleItems)
             .map(element => (
               element.body && (
               <div className='review--card' key={element.id}>
@@ -76,9 +81,6 @@ const Review = () => {
                 <div className='review--time'>{element.timeStamp}</div>
               </div>
           )))}
-          {visibleItems < item.length && (
-            <button className='review--button' onClick={fetchMoreData}>Show more reviews</button>
-          )}
           </div>
     </div>
     )

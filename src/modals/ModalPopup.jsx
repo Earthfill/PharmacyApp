@@ -53,6 +53,7 @@ const ModalPopup = ({ item }) => {
         formData.append('longitude', longitude);
         formData.append('latitude', latitude);
         formData.append('pharmacyId', item.id);
+        formData.append('phoneNumber', phone);
         formData.append('reportTagId', JSON.stringify(selectedTags));
         formData.append('image', image);
   
@@ -103,6 +104,7 @@ const ModalPopup = ({ item }) => {
     <div className="modal">
       {!isOpen && <button onClick={openModal} className='modal--report'>Report this pharmacy</button>}
       {isOpen && (
+        <div className='modal--modal'>
         <div className='modal--form'>
           <div className='modal--content'>
           <button className='modal--close--button' onClick={closeModal}>&#10060;</button>
@@ -160,6 +162,7 @@ const ModalPopup = ({ item }) => {
               </div>
             </form>
             </div>
+          </div>
           </div>
         )}
     </div>
