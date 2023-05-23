@@ -13,6 +13,9 @@ const ModalPopup = ({ item }) => {
   const [reports, setReports] = useState("")
   const [image, setImage] = useState(null);
 
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+
   const openModal = () => {
     setIsOpen(true);
   }
@@ -74,18 +77,26 @@ const ModalPopup = ({ item }) => {
     setReports('');
   };
 
-  const handleOtherClick = () => {
+  const handleOtherClick = (event) => {
     event.preventDefault();
     setShowTextarea(!showTextarea)
   }
 
-  const handleAnotherClick = () => {
+  const handleAnotherClick = (event) => {
     event.preventDefault();
     setShowImagearea(!showImagearea)
   }
 
   const handleThings = () => {
     setShowThings(!showThings)
+  }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value)
+  }
+
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value)
   }
 
   return (
@@ -95,8 +106,37 @@ const ModalPopup = ({ item }) => {
         <div className='modal--form'>
           <div className='modal--content'>
           <button className='modal--close--button' onClick={closeModal}>&#10060;</button>
-          <button className='modal--form--header' onClick={handleThings}>SELECT RELEVANT REPORTS</button>
             <form className='modal--form--handler'>
+              <div className='modal--textarea'>
+                <button onClick={handleOtherClick} className='modal--textarea--others'>MAKE A REPORT</button>
+                {showTextarea && <div className='modal--input'>Name:
+                    <input 
+                      name='name'
+                      placeholder='Your Name'
+                      required
+                      value={name}
+                      onChange={handleNameChange}
+                    />
+                  </div>}
+                {showTextarea && <div className='modal--input'> Phone Number
+                    <input 
+                      type='tel'
+                      name='phone'
+                      placeholder='Phone Number'
+                      required
+                      value={phone}
+                      onChange={handlePhoneChange}
+                    />
+                  </div>}
+                {showTextarea && <div className='modal--input'> Report 
+                  <textarea name="reports" cols='1' rows='2' 
+                    placeholder='Post a report here (optional)'
+                    value={reports}
+                    onChange={(e) => setReports(e.target.value)}
+                  />
+                </div>}
+              </div>
+              <button className='modal--form--header' onClick={handleThings}>Select Report Tag</button>
               <div className='modal--chips'>
               {showThings && reportTags.map((tag) => (
                 <Chip 
@@ -110,14 +150,6 @@ const ModalPopup = ({ item }) => {
               ))}
               </div>
               <div>
-                <div className='modal--textarea'>
-                  <button onClick={handleOtherClick} className='modal--textarea--others'>Other reports</button>
-                  {showTextarea && <textarea name="reports" cols='1' rows='2' 
-                    placeholder='Post a report here (optional)'
-                    value={reports}
-                    onChange={(e) => setReports(e.target.value)}  
-                  />}
-                </div>
                 <div className='modal--image'>
                   <button className='modal--textarea--others' onClick={handleAnotherClick}>Upload relevant image:</button>
                   {showImagearea && <input type="file" name="image" onChange={handleImageChange} className='modal--file--upload'/>}

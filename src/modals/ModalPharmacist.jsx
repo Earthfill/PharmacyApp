@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import EmailAddress from './EmailAddress'
-import PhoneNumber from './PhoneNumber'
+import EmailAddress from '../links/EmailAddress'
+import PhoneNumber from '../links/PhoneNumber'
 
 const ModalPharmacist = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -27,9 +27,9 @@ const ModalPharmacist = ({ item }) => {
               <span className='popup--content--info'>{item.pharmacist.firstName} {item.pharmacist.middleName} {item.pharmacist.lastName}</span>
             </div>
             <div className='popup--content--info--info'>
-              <p className='popup--content--regno'>REG. NO: {item.pharmacist.regNumber}</p>
-              <p className='popup--content--phone'>PHONE: <PhoneNumber number={item.pharmacist.phoneNumber} /></p>
-              <p className='popup--content--email'>EMAIL: <EmailAddress email={item.pharmacist.email} /></p>
+              <div className='popup--content--regno'>REG. NO: {item.pharmacist.regNumber}</div>
+              <div className='popup--content--phone'>PHONE: <PhoneNumber number={item.pharmacist.phoneNumber} /></div>
+              <div className='popup--content--email'>EMAIL: <EmailAddress email={item.pharmacist.email} /></div>
             </div>
             <button className="close-button" onClick={closeModal}>&#10060;</button>
           </div>

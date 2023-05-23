@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react';
 
 // for the make a rating

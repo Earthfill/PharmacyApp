@@ -248,7 +248,7 @@ textarea {
 
 .modal--popup {
   position: fixed;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   background-color: white;
@@ -261,9 +261,6 @@ textarea {
 
 .modal--popup, .popup--content {
   position: relative;
-}
-
-.modal--popup, .popup--content {
   margin: 0;
   margin-bottom: 10px;
 }
@@ -390,11 +387,11 @@ div.about--text--info {
   font-size: 15px;
   margin: 0 0 20px 30px;
   color: #45B6FE;
-  margin-top: 15px;
+  margin-top: 8%;
 }
 
 .about--title {
-  margin-top: 2%;
+  margin-top: 5%;
   display: inline-block;
 }
 
@@ -441,6 +438,10 @@ div.about--text--info {
   margin: 15px 8% 10px;
 }
 
+.about--form {
+  padding-left: 5px;
+}
+
 .about--button {
   color: #45B6FE;
   border: none;
@@ -449,6 +450,12 @@ div.about--text--info {
   position: absolute;
   right: 15px;
   margin-top: 5px;
+}
+
+.modal {
+  position: absolute;
+  /* bottom: -14%; */
+  width: 100vw;
 }
 
 .modal--form {
@@ -482,10 +489,11 @@ div.about--text--info {
 
 .modal--form--header {
   font-size: 15x;
-  margin-bottom: 10px;
   background-color: transparent;
   border: none;
-  color: #45B6FE
+  color: #45B6FE;
+  text-align: left;
+  margin: 3% 0 3%;
 }
 
 .modal--form--handler {
@@ -531,11 +539,13 @@ div.about--text--info {
 }
 
 .modal--textarea textarea {
-  width: 100%;
+  width: 75%;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
+  margin: 1% 0 0 3%;
+  vertical-align: middle;
 }
 
 .modal--image {
@@ -549,6 +559,26 @@ div.about--text--info {
 .modal--file--upload {
   display: block;
   margin-top: 5px;
+}
+
+.modal--input {
+  font-size: 14px;
+  margin: 3% 0 0 1%;
+}
+
+.modal--input input {
+  margin-left: 10px;
+  border: 1px solid #ccc;
+}
+
+.modal--input input::placeholder {
+  color: #ccc;
+  padding: 2px;
+  font-size: 12px;
+}
+
+input {
+  outline: none;
 }
 
 .modal--submit {
@@ -567,10 +597,10 @@ div.about--text--info {
 }
 
 .modal--report {
-  color: #45b6fe;
+  color: #45B6FE;
   border: none;
   background-color: transparent;
-  margin-left: 25px;
+  margin: 0 0 0 25px;
 }
 
 .review {
@@ -606,7 +636,7 @@ div.about--text--info {
 }
 
 .report--card {
-  margin: 0 -10px 50px;
+  margin: 70px -10px 50px;
 }
 
 .review--card:before, .report--card:before {
@@ -658,6 +688,13 @@ div.about--text--info {
 .review--time {
   text-align: right;
   margin-top: -10px;
+}
+
+.review--button {
+  border: none;
+  background-color: transparent;
+  color: #45B6FE;
+  margin-bottom: 10%;
 }
 
 .report {

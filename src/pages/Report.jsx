@@ -1,62 +1,52 @@
-import React from 'react'
-import Arrow from '../components/Arrow'
-import ReactLoading from "react-loading";
-import { useParams } from 'react-router-dom';
-
 import { useState, useEffect } from 'react'
-// import InfiniteScroll from "react-infinite-scroll-component";
+import { useParams } from 'react-router-dom';
+import ReactLoading from "react-loading";
+import axios from 'axios';
+import Arrow from '../components/Arrow'
 
 const Report = () => {
-  const [item, setItem] = useState(null)
+  const [item, setItem] = useState()
+  const [ritem, setRItem] = useState(null)
+  
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
   const params = useParams();
   const {id} = params;
 
-  const [expanded, setExpanded] = useState(false)
-  const [visibleItems, setVisibleItems] = useState(3)
+  const [currentPage, setCurrentPage] = useState(3);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
 
   useEffect(() => {
-    fetch(`${BASE_URL}/Report/${id}`)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error;
-      }
-      return res.json();
-    })
-    .then(
-      (result) => {
-        setItem(result.data);
-        setIsLoading(false);
-        setTimeout(() => {
+    const fetchData = () => {
+      axios.get(`${BASE_URL}/Report/paged?PageNumber=${currentPage}&PharmacyId=${id}`)
+        .then(response => {
+          const result = response.data;
           setItem(result.data);
+          setIsLoading(false);
+          setTotalPages(result.totalPages);
+  
+          setTimeout(() => {
+            setItem(result.data);
+            setIsLoading(true);
+          }, 900);
+        })
+        .catch(error => {
+          setError(true);
           setIsLoading(true);
-        }, 900);
-    })
-    .catch(() => {
-        setError(true);
-        setIsLoading(true);
-    })
-
-  }, [id])
-
-
-  const handleClick = () => {
-    setExpanded(!expanded);
-    if (!expanded) {
-      setExpanded(true);
-    }
-  }
-
-  const fetchMoreData = () => {
-    if (visibleItems >= item.length) {
-      return;
-    }
-    setTimeout(() => {
-      setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
-    }, 1500);
-  }
+        });
+    };
+  
+    fetchData();
+    
+ 
+  }, [id, currentPage]);
+  console.log(item);
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
 
   if (!isLoading) {
     return (
@@ -74,34 +64,27 @@ const Report = () => {
   return (
     <div>
       <Arrow />
+
       <div className='report'>
         <div>
           <h3 className='report--main'>Reports</h3>
-            <div className='report--page'>
-              {/* <p className='report--head'>Make a report</p>
-              <form className='report--form'>
-                <textarea name="" id="" cols="1" rows="2" 
-                  typeof='text' 
-                  placeholder='Post a report'
-                  value={reports}
-                  onChange={(e) => setReports(e.target.value)}
-                />
-                <button onClick={handleSubmit} type="submit" className='report--button'>POST</button>
-              </form> */}
+            {item.map((element) => (
+            <div className="report--card" key={element.id}>
+              <div className="review--text">{element.body}</div>
+              <span className="review--anonymous">--Anonymous</span>
+              <span className="review--time">{element.timeStamp}</span>
             </div>
+            ))}
+
+          <div className='review--paged'>
+            <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
+              Next
+            </button>
+          </div>
         </div>
-        {/* <InfiniteScroll
-            dataLength={visibleItems}
-            next={fetchMoreData}
-            hasMore={visibleItems < item.length}
-            // loader={<h4>Loading...</h4>}
-          >          */}
-        <div className="report--card">
-          <div className="review--text">{item.body}</div>
-            <span className="review--anonymous">--Anonymous</span>
-            <span className="review--time">{item.timeStamp}</span>
-        </div>
-          {/* </InfiniteScroll> */}
       </div>
     </div>
     )

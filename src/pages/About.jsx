@@ -1,16 +1,18 @@
 import React from 'react'
-import StarRating from '../components/StarRating'
 import { useState, useEffect } from 'react'
-import Error from './Error'
 import { Link,  useParams } from 'react-router-dom';
+import axios from 'axios';
 import ReactLoading from "react-loading";
+import pharmacyService from '../services/pharmacy'
+import Error from './Error'
+import StarRating from '../components/StarRating'
 import RatedStar from '../components/RatedStar';
 import Popups from '../components/Popups';
-import PhoneNumber from '../components/PhoneNumber';
-import EmailAddress from '../components/EmailAddress';
-import Address from '../components/Address';
-import ModalPharmacist from '../components/ModalPharmacist';
-import ModalPopup from '../components/ModalPopup';
+import ModalPharmacist from '../modals/ModalPharmacist';
+import ModalPopup from '../modals/ModalPopup';
+import PhoneNumber from '../links/PhoneNumber';
+import EmailAddress from '../links/EmailAddress';
+import Address from '../links/Address';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -26,63 +28,57 @@ const About = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [isPosted, setIsPosted] = useState(false);
 
-  const BASE_URL = `https://artisanbe.herokuapp.com/api/v1`;
+  const BASE_URL = 'https://artisanbe.herokuapp.com/api/v1'
+  const REVIEW_URL = 'Review/AddReview'
   
   useEffect(() => {
-    fetch(`${BASE_URL}/Pharmacy/verify/${uniqueGuid}`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error;
-        }
-        return res.json();
-      })
-      .then(
-        (result) => {
-          setItem(result.data);
-          setIsLoading(false);
-          setTimeout(() => {
-            setItem(result.data);
-            setIsLoading(true);
-          }, 900);
-      })
-      .catch(() => {
-          setError(true);
-          setIsLoading(true);
-      })
+    const fetchData = async () => {
+      try {
+        const result = await pharmacyService.getByGuid(uniqueGuid)
+        setItem(result.data)
+        setIsLoading(false)
+        setTimeout(() => {
+          setItem(result.data)
+          setIsLoading(true)
+        }, 900)
+      } catch (error) {
+        setError(true);
+        setIsLoading(true);
+        console.error('Error', error);
+      }
+    }
+    
+    fetchData()
   }, [uniqueGuid])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-		fetch(`${BASE_URL}/Review/AddReview`, {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-		 
-			body: JSON.stringify({
-				"body": reviews,
-				"rating": rating,
-				"pharmacyId": item.id
-			})
-		})
-		.then(res => res.json())
-		
-		.catch(error => console.error(error.message));
-		// onReviewSubmit(res.data);
-    setReviews("");
-    setRating();
-    setIsPosted(true)
-		};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(`${BASE_URL}/${REVIEW_URL}`, {
+        "body": reviews,
+        "rating": rating,
+        "pharmacyId": item.id
+      }, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      setReviews('')
+      setRating()
+      setIsPosted(true)
+      
+      return response.data
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  }
 
   const handleRate = (value) => {
     setRating(value);
     setShowPopup(true);
   };
-
-  // const handleReviewSubmit = (review) => {
-  //   setReviews([...reviews, reviews]);
-  // };
 
   if (!isLoading) {
     return (
@@ -151,7 +147,7 @@ const About = () => {
         <div className='about--reviews'>
           <h3>Ratings and reviews</h3>
           <p className='about--text--info'>
-            {item.reviews.length < 1 ? "No reviews yet!": item.reviews[0].body}
+            {item.reviews.length < 1 ? "No reviews yet!": item.reviews[item.reviews.length - 1].body}
           </p>
         </div>
         <div className='about--text--info'>
@@ -182,6 +178,7 @@ const About = () => {
                 placeholder='Post a review (optional)'
                 value={reviews}
                 onChange={(e) => setReviews(e.target.value)}
+                className='about--form'
               />
             </form>
           </div>
