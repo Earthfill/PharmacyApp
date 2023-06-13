@@ -149,9 +149,9 @@ const About = () => {
           </p>
         </div>
         <div className='about--text--info'>
-        {item.reviews.length < 1 ? <p></p> : item.reviews[0].body === "" ? "No reviews yet!":
+        {/* {item.reviews.length < 1 ? <p></p> : item.reviews[0].body === "" ? "No reviews yet!":
         <p className='about--anonymous'><em>--Anonymous</em></p>
-        }
+        } */}
         </div>
         {item.reviews.length < 1 ? <p></p> :
         <div className='about--more'>

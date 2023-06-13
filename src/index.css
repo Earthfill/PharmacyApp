@@ -355,6 +355,10 @@ div.about--text--info {
   padding: 2.5%;
 }
 
+.about--rating--header {
+  margin: -10px 0 15px 0;
+}
+
 .about--rating--bad, .about--rating--great {
   display: inline-block;
   font-size: 11px;
@@ -795,6 +799,6 @@ input {
   margin-top: 15px;
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   
-}
+} */
