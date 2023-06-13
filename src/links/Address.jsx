@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Address = ({ address }) => {
   const handleAddressClick = () => {
     window.open(`https://maps.google.com/maps?q=${address}`);

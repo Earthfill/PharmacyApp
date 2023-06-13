@@ -1,18 +1,16 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link,  useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReactLoading from "react-loading";
 import pharmacyService from '../services/pharmacy'
 import Error from './Error'
-import StarRating from '../components/StarRating'
 import RatedStar from '../components/RatedStar';
-import Popups from '../components/Popups';
 import ModalPharmacist from '../modals/ModalPharmacist';
 import ModalPopup from '../modals/ModalPopup';
 import PhoneNumber from '../links/PhoneNumber';
 import EmailAddress from '../links/EmailAddress';
 import Address from '../links/Address';
+import ModalRating from '../modals/ModalRating';
 
 const About = () => {
   const [item, setItem] = useState(null);
@@ -21,7 +19,7 @@ const About = () => {
 
   const params = useParams();
   const {uniqueGuid} = params;
-  
+
   const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState("");
 
@@ -30,7 +28,7 @@ const About = () => {
 
   const BASE_URL = 'https://artisanbe.herokuapp.com/api/v1'
   const REVIEW_URL = 'Review/AddReview'
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,11 +62,11 @@ const About = () => {
           'Content-Type': 'application/json'
         }
       })
-      
+
       setReviews('')
       setRating()
       setIsPosted(true)
-      
+
       return response.data
     } catch (error) {
       console.error('Error:', error.message);
@@ -161,32 +159,17 @@ const About = () => {
         </div>
         }
         <hr />
-        <div className='about--ratings'>
-          <p className='about--title'><strong>Rate & Report</strong></p>
-          {showPopup && <button type="submit" className='about--button' onClick={handleSubmit}>POST</button>}
-        </div>
-        <div className='about--rating'>
-          <StarRating onRate={handleRate} />
-          {!showPopup && <p className='about--rating--bad'>Bad</p>}
-          {!showPopup && <p className='about--rating--great'>Great</p>}
-          {showPopup && <Popups />}
-          {showPopup && 
-          <div className='about--fill'>
-            <form>
-              <textarea name="" id="" cols="1" rows="2" 
-                typeof='text' 
-                placeholder='Post a review (optional)'
-                value={reviews}
-                onChange={(e) => setReviews(e.target.value)}
-                className='about--form'
-              />
-            </form>
-          </div>
-          }
-          {isPosted && <p className='about--posting'>Thanks for posting!</p>}
-        </div>
+        <div className='about--title'><strong>Rate & Report</strong></div>
+        <ModalRating
+          showPopup={showPopup}
+          reviews={reviews}
+          setReviews={setReviews}
+          isPosted={isPosted}
+          handleRate={handleRate}
+          handleSubmit={handleSubmit}
+        />
         <ModalPopup item={item} />
-        <div className='about--more'>
+        <div className='about--somemore'>
           <Link to={`/about/report/${item.id}`}>View all reports</Link>
         </div>
       </div>

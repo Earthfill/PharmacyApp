@@ -1,5 +1,3 @@
-import React from 'react'
-
 const EmailAddress = ({ email }) => {
   const handleEmailClick = () => {
     window.location.href = `mailto:${email}`;

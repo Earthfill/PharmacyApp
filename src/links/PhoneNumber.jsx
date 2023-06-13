@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PhoneNumber = ({ number }) => {
   const handlePhoneNumberClick = () => {
     window.location.href = `tel:${number}`;

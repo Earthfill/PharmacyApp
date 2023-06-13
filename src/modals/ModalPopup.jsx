@@ -1,6 +1,6 @@
-import React from 'react'
 import { useState } from 'react';
 import useReportTags from '../hooks/useReportTags';
+import useField from '../hooks/useField';
 import { Chip } from '@mui/material';
 
 const ModalPopup = ({ item }) => {
@@ -13,8 +13,8 @@ const ModalPopup = ({ item }) => {
   const [reports, setReports] = useState("")
   const [image, setImage] = useState(null);
 
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
+  const name = useField("")
+  const phone = useField("")
 
   const openModal = () => {
     setIsOpen(true);
@@ -88,21 +88,14 @@ const ModalPopup = ({ item }) => {
     setShowImagearea(!showImagearea)
   }
 
-  const handleThings = () => {
+  const handleThings = (event) => {
+    event.preventDefault()
     setShowThings(!showThings)
-  }
-
-  const handleNameChange = (event) => {
-    setName(event.target.value)
-  }
-
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value)
   }
 
   return (
     <div className="modal">
-      {!isOpen && <button onClick={openModal} className='modal--report'>Report this pharmacy</button>}
+      {!isOpen && <button onClick={openModal} className='modal--report'>Report</button>}
       {isOpen && (
         <div className='modal--modal'>
         <div className='modal--form'>
@@ -116,8 +109,8 @@ const ModalPopup = ({ item }) => {
                       name='name'
                       placeholder='Your Name'
                       required
-                      value={name}
-                      onChange={handleNameChange}
+                      value={name.value}
+                      onChange={name.handleChange}
                     />
                   </div>}
                 {showTextarea && <div className='modal--input'> Phone Number
@@ -126,8 +119,8 @@ const ModalPopup = ({ item }) => {
                       name='phone'
                       placeholder='Phone Number'
                       required
-                      value={phone}
-                      onChange={handlePhoneChange}
+                      value={phone.value}
+                      onChange={phone.handleChange}
                     />
                   </div>}
                 {showTextarea && <div className='modal--input'> Report 
@@ -168,5 +161,5 @@ const ModalPopup = ({ item }) => {
     </div>
   )
 }
-
+we
 export default ModalPopup
