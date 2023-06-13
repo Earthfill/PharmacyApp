@@ -19,6 +19,7 @@ const ModalRating = ({ showPopup, reviews, setReviews, isPosted, handleRate, han
       {isOpen && (
         <div className="modal--wrapper">
           <div className='about--rating'>
+            <h3>Make a review</h3>
             <StarRating onRate={handleRate} />
             {!showPopup && <p className='about--rating--bad'>Bad</p>}
             {!showPopup && <p className='about--rating--great'>Great</p>}
