@@ -161,5 +161,5 @@ const ModalPopup = ({ item }) => {
     </div>
   )
 }
-we
+
 export default ModalPopup
